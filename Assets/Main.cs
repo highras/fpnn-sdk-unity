@@ -21,15 +21,15 @@ public class Main : MonoBehaviour
 
     private void ThreadFunc() {
 
-        this._asyncTester = new asyncStressClient("52.83.245.22", 13013, 10, 1500);
-        this._asyncTester.launch();
-        this._asyncTester.showStatistics(); 
+        // this._asyncTester = new asyncStressClient("52.83.245.22", 13013, 10, 1500);
+        // this._asyncTester.launch();
+        // this._asyncTester.showStatistics(); 
 
-        // if (this._program == null) {
+        if (this._program == null) {
 
-        //     this._program = new Program();
-        //     this._program.Begin();
-        // }
+            this._program = new Program();
+            this._program.Begin();
+        }
     }
 
     // Update is called once per frame
