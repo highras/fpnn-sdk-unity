@@ -8,16 +8,16 @@ using GameDevWare.Serialization;
 namespace com.fpnn
 {
     public class singleClientConcurrentTest
-	{
+    {
 
-		FPClient client = null;
+        FPClient client = null;
 
-		public singleClientConcurrentTest()
-		{
-		}
+        public singleClientConcurrentTest()
+        {
+        }
 
-		public FPData buildQuest()
-		{
+        public FPData buildQuest()
+        {
             
             Dictionary<string, object> mp = new Dictionary<string, object>();
             mp.Add("pid", 11000001);
@@ -39,154 +39,154 @@ namespace com.fpnn
             data.SetMethod("test");
             data.SetPayload(payload);
             return data;
-		}
+        }
 
-		void showSignDesc()
-		{
-			Console.WriteLine("Sign:");
-			Console.WriteLine("    +: establish connection");
-			Console.WriteLine("    ~: close connection");
-			Console.WriteLine("    #: connection error");
+        void showSignDesc()
+        {
+            Console.WriteLine("Sign:");
+            Console.WriteLine("    +: establish connection");
+            Console.WriteLine("    ~: close connection");
+            Console.WriteLine("    #: connection error");
 
-			Console.WriteLine("    *: send sync quest");
-			Console.WriteLine("    &: send async quest");
+            Console.WriteLine("    *: send sync quest");
+            Console.WriteLine("    &: send async quest");
 
-			Console.WriteLine("    ^: sync answer Ok");
-			Console.WriteLine("    ?: sync answer exception");
-			Console.WriteLine("    |: sync answer exception by connection closed");
-			Console.WriteLine("    (: sync operation fpnn exception");
-			Console.WriteLine("    ): sync operation unknown exception");
+            Console.WriteLine("    ^: sync answer Ok");
+            Console.WriteLine("    ?: sync answer exception");
+            Console.WriteLine("    |: sync answer exception by connection closed");
+            Console.WriteLine("    (: sync operation fpnn exception");
+            Console.WriteLine("    ): sync operation unknown exception");
 
-			Console.WriteLine("    $: async answer Ok");
-			Console.WriteLine("    @: async answer exception");
-			Console.WriteLine("    ;: async answer exception by connection closed");
-			Console.WriteLine("    {: async operation fpnn exception");
-			Console.WriteLine("    }: async operation unknown exception");
+            Console.WriteLine("    $: async answer Ok");
+            Console.WriteLine("    @: async answer exception");
+            Console.WriteLine("    ;: async answer exception by connection closed");
+            Console.WriteLine("    {: async operation fpnn exception");
+            Console.WriteLine("    }: async operation unknown exception");
 
-			Console.WriteLine("    !: close operation");
-			Console.WriteLine("    [: close operation fpnn exception");
-			Console.WriteLine("    ]: close operation unknown exception");
-		}
+            Console.WriteLine("    !: close operation");
+            Console.WriteLine("    [: close operation fpnn exception");
+            Console.WriteLine("    ]: close operation unknown exception");
+        }
 
-		void testThread(object param)
-		{
-			int count = (int)param;
-			int act = 0;
-			for (int i = 0; i < count; i++)
-			{
-				Int64 index = (ThreadPool.Instance.GetMilliTimestamp() + i) % 64;
-				if (i >= 10)
-				{
-					if (index < 6)
-						act = 2;    //-- close operation
-					else if (index < 32)
-						act = 1;    //-- async quest
-					else
-						act = 0;    //-- sync quest
-				}
-				else
-					act = (int)index & 0x1;
-				try
-				{
-					switch (act)
-					{
-						case 0:
-							Console.Write("*");
-							CallbackData cbdS = client.SendQuest(buildQuest(), 0);
-							if (cbdS.GetException() == null)
-							{
-								Console.Write("^");
-							}
-							else {
-								Console.Write("?");
+        void testThread(object param)
+        {
+            int count = (int)param;
+            int act = 0;
+            for (int i = 0; i < count; i++)
+            {
+                Int64 index = (ThreadPool.Instance.GetMilliTimestamp() + i) % 64;
+                if (i >= 10)
+                {
+                    if (index < 6)
+                        act = 2;    //-- close operation
+                    else if (index < 32)
+                        act = 1;    //-- async quest
+                    else
+                        act = 0;    //-- sync quest
+                }
+                else
+                    act = (int)index & 0x1;
+                try
+                {
+                    switch (act)
+                    {
+                        case 0:
+                            Console.Write("*");
+                            CallbackData cbdS = client.SendQuest(buildQuest(), 0);
+                            if (cbdS.GetException() == null)
+                            {
+                                Console.Write("^");
+                            }
+                            else {
+                                Console.Write("?");
                             }
 
-							break;
-						case 1:
-							Console.Write("&");
+                            break;
+                        case 1:
+                            Console.Write("&");
 
-							client.SendQuest(buildQuest(), delegate (CallbackData cbd)
-							{
-								if (cbd.GetException() == null)
-								{
-									Console.Write("$");
-								}
-								else
-								{
-									Console.Write("@");
-								}
-							});
-							break;
-						case 2:
-							Console.Write("!");
-							client.Close();
-							break;
-					}
-				}
-				catch (Exception)
-				{
-					switch (act)
-					{
-						case 0: Console.Write(')'); break;
-						case 1: Console.Write('}'); break;
-						case 2: Console.Write(']'); break;
-					}
-				}
+                            client.SendQuest(buildQuest(), delegate (CallbackData cbd)
+                            {
+                                if (cbd.GetException() == null)
+                                {
+                                    Console.Write("$");
+                                }
+                                else
+                                {
+                                    Console.Write("@");
+                                }
+                            });
+                            break;
+                        case 2:
+                            Console.Write("!");
+                            client.Close();
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    switch (act)
+                    {
+                        case 0: Console.Write(')'); break;
+                        case 1: Console.Write('}'); break;
+                        case 2: Console.Write(']'); break;
+                    }
+                }
 
-			}
-		}
+            }
+        }
 
-		void test(FPClient client, int threadCount, int questCount)
-		{
-			Console.WriteLine("========[ Test: thread " + threadCount + ", per thread quest: " + questCount + " ]==========");
+        void test(FPClient client, int threadCount, int questCount)
+        {
+            Console.WriteLine("========[ Test: thread " + threadCount + ", per thread quest: " + questCount + " ]==========");
 
-			ArrayList _threads = new ArrayList();
+            ArrayList _threads = new ArrayList();
 
-			for (int i = 0; i < threadCount; i++)
-			{
-				Thread t = new Thread(testThread);
-				t.IsBackground = true;
-				t.Start(questCount);
-				_threads.Add(t);
-			}
+            for (int i = 0; i < threadCount; i++)
+            {
+                Thread t = new Thread(testThread);
+                t.IsBackground = true;
+                t.Start(questCount);
+                _threads.Add(t);
+            }
 
-			System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(5000);
 
-			for (int i = 0; i < _threads.Count; i++)
-			{
-				Thread t = (Thread)_threads[i];
-				t.Join();
-			}
-		}
+            for (int i = 0; i < _threads.Count; i++)
+            {
+                Thread t = (Thread)_threads[i];
+                t.Join();
+            }
+        }
 
 
-		public void launch()
-		{
-			client = new FPClient("52.83.245.22:13697", false, 0);
+        public void launch()
+        {
+            client = new FPClient("52.83.245.22:13697", false, 0);
 
-			client.GetEvent().AddListener("connect", (evd) => {
+            client.GetEvent().AddListener("connect", (evd) => {
 
-				Console.Write("+");
+                Console.Write("+");
             });
 
-			client.GetEvent().AddListener("close", (evd) => {
+            client.GetEvent().AddListener("close", (evd) => {
 
-				Console.Write("#");
+                Console.Write("#");
             });
 
 
-			client.Connect();
+            client.Connect();
 
-			showSignDesc();
+            showSignDesc();
 
-			test(client, 15, 3000);
+            test(client, 15, 3000);
 
-			/*test(client, 10, 30000);
-			test(client, 20, 30000);
-			test(client, 30, 30000);
-			test(client, 40, 30000);
-			test(client, 50, 30000);
-			test(client, 60, 30000);*/
-		}
-	}
+            /*test(client, 10, 30000);
+            test(client, 20, 30000);
+            test(client, 30, 30000);
+            test(client, 40, 30000);
+            test(client, 50, 30000);
+            test(client, 60, 30000);*/
+        }
+    }
 }
