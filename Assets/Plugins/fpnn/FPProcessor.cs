@@ -59,7 +59,7 @@ namespace com.fpnn {
         }
 
         private bool _serviceAble;
-        private System.Threading.ManualResetEvent _serviceEvent = new System.Threading.ManualResetEvent(true);
+        private System.Threading.ManualResetEvent _serviceEvent = new System.Threading.ManualResetEvent(false);
 
         private void StartServiceThread() {
 
@@ -73,35 +73,25 @@ namespace com.fpnn {
 
             ThreadPool.Instance.Execute((state) => {
 
+                System.Threading.Thread.CurrentThread.Name = "fpnn_service_thread";
+
                 try {
 
                     while (self._serviceAble) {
 
                         self._serviceEvent.WaitOne();
 
-                        int count = 0;
-                        ServiceDelegate service = null;
+                        List<ServiceDelegate> list;
 
-                        lock(service_locker) {
+                        lock(self.service_locker) {
 
-                            if (self._serviceCache.Count > 0) {
-
-                                service = self._serviceCache[0];
-                                self._serviceCache.RemoveAt(0);
-                            }
-
-                            count = self._serviceCache.Count;
-                        }
-
-                        if (service != null) {
-
-                            service();
-                        }
-
-                        if (count == 0) {
+                            list = self._serviceCache;
+                            self._serviceCache = new List<ServiceDelegate>();
 
                             self._serviceEvent.Reset();
                         }
+
+                        self.CallService(list);
                     }
                 } catch (System.Threading.ThreadAbortException tex) {
                 } catch (Exception e) {
@@ -111,9 +101,24 @@ namespace com.fpnn {
             });
         }
 
+        private void CallService(ICollection<ServiceDelegate> list) {
+
+            foreach (ServiceDelegate service in list) {
+
+                if (service != null) {
+
+                    service();
+                }
+            }
+        }
+
         private void StopServiceThread() {
 
-            this._serviceEvent.Reset();
+            lock(service_locker) {
+
+                this._serviceEvent.Set();
+            }
+
             this._serviceAble = false;
         }
 
@@ -150,9 +155,9 @@ namespace com.fpnn {
 
                     this.StartServiceThread();
                 } 
-            }       
 
-            this._serviceEvent.Set();
+                this._serviceEvent.Set();
+            }       
         }
 
         public void OnSecond(long timestamp) {
