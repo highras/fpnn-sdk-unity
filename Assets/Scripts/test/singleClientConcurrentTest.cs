@@ -74,7 +74,7 @@ namespace com.fpnn
             int act = 0;
             for (int i = 0; i < count; i++)
             {
-                Int64 index = (ThreadPool.Instance.GetMilliTimestamp() + i) % 64;
+                Int64 index = (FPManager.Instance.GetMilliTimestamp() + i) % 64;
                 if (i >= 10)
                 {
                     if (index < 6)
@@ -162,23 +162,21 @@ namespace com.fpnn
 
         public void launch()
         {
-            client = new FPClient("52.83.245.22:13697", false, 0);
+            client = new FPClient("52.83.245.22:13697", 0);
 
-            client.GetEvent().AddListener("connect", (evd) => {
+            client.Client_Connect = (evd) => {
 
                 Console.Write("+");
-            });
+            };
 
-            client.GetEvent().AddListener("close", (evd) => {
+            client.Client_Close = (evd) => {
 
                 Console.Write("#");
-            });
-
+            };
 
             client.Connect();
 
             showSignDesc();
-
             test(client, 15, 3000);
 
             /*test(client, 10, 30000);

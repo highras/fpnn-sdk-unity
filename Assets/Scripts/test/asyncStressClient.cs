@@ -196,7 +196,7 @@ namespace com.fpnn
 
             Debug.Log("-- qps: " + qps + ", usec: " + usec);
 
-            FPClient client = new FPClient(_ip, _port, false, 0);
+            FPClient client = new FPClient(_ip, _port, 0);
             client.Connect();
             while (true)
             {
