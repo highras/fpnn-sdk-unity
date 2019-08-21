@@ -95,22 +95,12 @@ namespace com.fpnn {
 
                     return;
                 }
-            }
 
-            this._sock.Open();
+                this._sock.Open();
+            }
         }
 
         public void Close() {
-
-            this.SocketClose(null);
-        }
-
-        public void Close(Exception ex) {
-
-            this.SocketClose(ex);
-        }
-
-        private void SocketClose(Exception ex){
 
             lock (self_locker) {
 
@@ -119,17 +109,34 @@ namespace com.fpnn {
                     return;
                 }
 
-                this._isClose = true;
+                this.SocketClose(null);
+            }
+        }
 
-                if (this._eventDelegate != null) {
+        public void Close(Exception ex) {
 
-                    FPManager.Instance.RemoveSecond(this._eventDelegate);
-                    this._eventDelegate = null;
+            lock (self_locker) {
+
+                if (this._isClose) {
+                    
+                    return;
                 }
 
-                this._psr.Destroy();
+                this.SocketClose(ex);
+            }
+        }
+
+        private void SocketClose(Exception ex){
+
+            this._isClose = true;
+
+            if (this._eventDelegate != null) {
+
+                FPManager.Instance.RemoveSecond(this._eventDelegate);
+                this._eventDelegate = null;
             }
 
+            this._psr.Destroy();
             this._sock.Close(ex);
         }
 
