@@ -95,43 +95,22 @@ namespace com.fpnn {
 
                     return;
                 }
-
-                this._sock.Open();
             }
-        }
 
-        private void SocketClose(Exception e){
-
-            FPClient self = this;
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback((state) => { 
-
-                try {
-
-                    self._sock.Close(e);
-                } catch (ThreadAbortException tex) {
-                } catch (Exception ex) {
-
-                    ErrorRecorderHolder.recordError(ex);
-                } 
-            }));
+            this._sock.Open();
         }
 
         public void Close() {
 
-            lock (self_locker) {
-
-                if (this._isClose) {
-
-                    return;
-                }
-
-                this._isClose = true;
-                this.SocketClose(null);
-            } 
+            this.SocketClose(null);
         }
 
         public void Close(Exception ex) {
+
+            this.SocketClose(ex);
+        }
+
+        private void SocketClose(Exception ex){
 
             lock (self_locker) {
 
@@ -141,13 +120,6 @@ namespace com.fpnn {
                 }
 
                 this._isClose = true;
-                this.SocketClose(ex);
-            } 
-        }
-
-        private void Destroy() {
-
-            lock (self_locker) {
 
                 if (this._eventDelegate != null) {
 
@@ -156,11 +128,16 @@ namespace com.fpnn {
                 }
 
                 this._psr.Destroy();
-
-                this.Client_Connect = null;
-                this.Client_Close = null;
-                this.Client_Error = null;
             }
+
+            this._sock.Close(ex);
+        }
+
+        private void Destroy() {
+
+            this.Client_Connect = null;
+            this.Client_Close = null;
+            this.Client_Error = null;
         }
 
         public void SendQuest(FPData data) {
