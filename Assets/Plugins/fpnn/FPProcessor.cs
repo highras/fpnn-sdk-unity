@@ -67,7 +67,7 @@ namespace com.fpnn {
                 }
             }
 
-            lock(service_locker) {
+            lock (service_locker) {
 
                 if (service_locker.Status != 0) {
 
@@ -84,7 +84,6 @@ namespace com.fpnn {
                     this._serviceThread.Name = "fpnn_push_thread";
                 }
 
-                this._serviceThread.IsBackground = true;
                 this._serviceThread.Start();
             }
         }
@@ -99,7 +98,7 @@ namespace com.fpnn {
 
                     List<ServiceDelegate> list;
 
-                    lock(service_locker) {
+                    lock (service_locker) {
 
                         if (service_locker.Status == 0) {
 
@@ -120,7 +119,7 @@ namespace com.fpnn {
                 ErrorRecorderHolder.recordError(ex);
             } finally {
 
-                this.StopServiceThread();
+                this.StopServiceThread(false);
             }
         }
 
@@ -141,12 +140,20 @@ namespace com.fpnn {
             }
         }
 
-        private void StopServiceThread() {
+        private void StopServiceThread(bool destroy) {
 
-            lock(service_locker) {
+            lock (service_locker) {
 
-                service_locker.Status = 0;
-                this._serviceEvent.Set();
+                if (service_locker.Status != 0) {
+
+                    service_locker.Status = 0;
+                    this._serviceEvent.Set();
+                }
+            }
+
+            if (destroy) {
+
+                this._serviceEvent.Close(); 
             }
         }
 
@@ -170,22 +177,27 @@ namespace com.fpnn {
                 }
             }
 
+            FPProcessor self = this;
+
+            this.AddService(() => {
+
+                lock (self_locker) {
+
+                    self._processor.Service(data, answer);
+                }
+            });
+        }
+
+        private void AddService(ServiceDelegate service) {
+
             this.StartServiceThread();
 
-            lock(service_locker) {
-
-                FPProcessor self = this;
+            lock (service_locker) {
 
                 if (this._serviceCache.Count < 3000) {
 
-                    this._serviceCache.Add(() => {
-
-                        lock (self_locker) {
-
-                            self._processor.Service(data, answer);
-                        }
-                    });
-                }
+                    this._serviceCache.Add(service);
+                } 
 
                 if (this._serviceCache.Count == 2998) {
 
@@ -193,7 +205,7 @@ namespace com.fpnn {
                 }
 
                 this._serviceEvent.Set();
-            }       
+            } 
         }
 
         public void OnSecond(long timestamp) {
@@ -219,7 +231,7 @@ namespace com.fpnn {
                 this._destroyed = true;
             }
 
-            this.StopServiceThread();
+            this.StopServiceThread(true);
         }
     }
 }

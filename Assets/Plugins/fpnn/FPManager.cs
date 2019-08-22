@@ -233,33 +233,60 @@ namespace com.fpnn {
 
         private List<ServiceDelegate> _serviceCache = new List<ServiceDelegate>();
 
-        public void AddEventCall(EventDelegate callback, EventData evd) {
+        public void EventTask(EventDelegate callback, EventData evd) {
 
-            this.StartServiceThread();
-            
-            lock (service_locker) {
+            this.AddService(() => {
 
-                if (this._serviceCache.Count < 3000) {
+                if (callback != null) {
 
-                    this._serviceCache.Add(() => {
-
-                        if (callback != null) {
-
-                            callback(evd);
-                        }
-                    });
-                } 
-
-                if (this._serviceCache.Count == 2998) {
-
-                    ErrorRecorderHolder.recordError(new Exception("Event Calls Limit!"));
+                    callback(evd);
                 }
-
-                this._serviceEvent.Set();
-            }       
+            });
         }
 
-        public void AddBackCall(CallbackDelegate callback, CallbackData cbd) {
+        public void CallbackTask(CallbackDelegate callback, CallbackData cbd) {
+
+            this.AddService(() => {
+
+                if (callback != null) {
+
+                    callback(cbd);
+                }
+            });
+        }
+
+        public void AsyncTask(Action taskAction) {
+
+            this.DelayTask(0, taskAction);
+        }
+
+        public void DelayTask(int milliSecond, Action taskAction) {
+
+            this.AddService(() => {
+
+                ThreadPool.QueueUserWorkItem(new WaitCallback((state) => {
+
+                    try {
+
+                        if (milliSecond > 0) {
+
+                            Thread.Sleep(milliSecond);
+                        }
+
+                        if (taskAction != null) {
+
+                            taskAction();
+                        }
+                    } catch (ThreadAbortException tex) {
+                    } catch (Exception ex) {
+
+                        ErrorRecorderHolder.recordError(ex);
+                    } 
+                }));
+            });
+        }
+
+        private void AddService(ServiceDelegate service) {
 
             this.StartServiceThread();
 
@@ -267,22 +294,16 @@ namespace com.fpnn {
 
                 if (this._serviceCache.Count < 3000) {
 
-                    this._serviceCache.Add(() => {
-
-                        if (callback != null) {
-
-                            callback(cbd);
-                        }
-                    });
+                    this._serviceCache.Add(service);
                 } 
 
                 if (this._serviceCache.Count == 2998) {
 
-                    ErrorRecorderHolder.recordError(new Exception("Back Calls Limit!"));
+                    ErrorRecorderHolder.recordError(new Exception("Service Calls Limit!"));
                 }
 
                 this._serviceEvent.Set();
-            }       
+            } 
         }
 
         public Int64 GetMilliTimestamp() {
