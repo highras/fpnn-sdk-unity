@@ -107,10 +107,9 @@ namespace com.fpnn {
 
                         list = this._serviceCache;
                         this._serviceCache = new List<ServiceDelegate>();
-
-                        this._serviceEvent.Reset();
                     }
 
+                    this._serviceEvent.Reset();
                     this.CallService(list);
                 }
             } catch (ThreadAbortException tex) {
@@ -203,9 +202,9 @@ namespace com.fpnn {
 
                     ErrorRecorderHolder.recordError(new Exception("Push Calls Limit!"));
                 }
-
-                this._serviceEvent.Set();
             } 
+
+            this._serviceEvent.Set();
         }
 
         public void OnSecond(long timestamp) {

@@ -189,10 +189,9 @@ namespace com.fpnn {
 
                         list = this._serviceCache;
                         this._serviceCache = new List<ServiceDelegate>();
-
-                        this._serviceEvent.Reset();
                     }
 
+                    this._serviceEvent.Reset();
                     this.CallService(list);
                 }
             } catch (ThreadAbortException tex) {
@@ -226,8 +225,11 @@ namespace com.fpnn {
 
             lock (service_locker) {
 
-                service_locker.Status = 0;
-                this._serviceEvent.Set();
+                if (service_locker.Status != 0) {
+
+                    service_locker.Status = 0;
+                    this._serviceEvent.Set();
+                }
             }
         }
 
@@ -301,9 +303,9 @@ namespace com.fpnn {
 
                     ErrorRecorderHolder.recordError(new Exception("Service Calls Limit!"));
                 }
-
-                this._serviceEvent.Set();
             } 
+
+            this._serviceEvent.Set();
         }
 
         public Int64 GetMilliTimestamp() {

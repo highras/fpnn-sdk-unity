@@ -331,7 +331,7 @@ namespace com.fpnn {
 
         public void Write(byte[] buffer) {
 
-            lock(this._sendQueue) {
+            lock (this._sendQueue) {
 
                 for (int i = 0; i < buffer.Length; i++) {
 
@@ -396,7 +396,7 @@ namespace com.fpnn {
 
             byte[] buffer = new byte[0];
 
-            lock(this._sendQueue) {
+            lock (this._sendQueue) {
 
                 buffer = this._sendQueue.ToArray();
                 this._sendQueue.Clear();
