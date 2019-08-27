@@ -426,7 +426,10 @@ namespace com.fpnn {
 
             try {
 
-                this._sendEvent.WaitOne();
+                if (!this._sendEvent.SafeWaitHandle.IsClosed) {
+
+                    this._sendEvent.WaitOne();
+                }
             } catch(Exception ex) {
 
                 ErrorRecorderHolder.recordError(ex);
