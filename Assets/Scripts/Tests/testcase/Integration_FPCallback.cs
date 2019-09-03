@@ -87,6 +87,10 @@ public class Integration_FPCallback {
 		}, 1 * 1000);
 
 		this._callback.RemoveCallback();
+		this._callback.ExecCallback("Callback_Add_Remove_Add_Exec", new FPData());
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(0, count);
+
 		this._callback.AddCallback("Callback_Add_Remove_Add_Exec", (cbd) => {
 
 			count++;
