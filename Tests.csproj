@@ -72,6 +72,7 @@
      <Compile Include="Assets\Editor\Tests\testcase\Unit_CallbackData.cs" />
      <Compile Include="Assets\Editor\Tests\testcase\Unit_EventData.cs" />
      <Compile Include="Assets\Editor\Tests\testcase\Unit_FPCallback.cs" />
+     <Compile Include="Assets\Editor\Tests\testcase\Unit_FPEvent.cs" />
  <Reference Include="UnityEngine.TestRunner">
  <HintPath>/Users/di.zhao/Documents/repo/Bitbucket/infra-fpnn-sdk/Unity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>

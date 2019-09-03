@@ -16,11 +16,13 @@ namespace com.fpnn {
 
             if (string.IsNullOrEmpty(key)) {
 
+                ErrorRecorderHolder.recordError(new Exception("callback key is null or empty"));
                 return;
             }
 
             if (callback == null) {
 
+                ErrorRecorderHolder.recordError(new Exception("CallbackDelegate is null"));
                 return;
             }
 
@@ -61,6 +63,7 @@ namespace com.fpnn {
 
             if (string.IsNullOrEmpty(key)) {
 
+                ErrorRecorderHolder.recordError(new Exception("callback key is null or empty"));
                 return;
             }
 
@@ -93,6 +96,7 @@ namespace com.fpnn {
 
             if (string.IsNullOrEmpty(key)) {
 
+                ErrorRecorderHolder.recordError(new Exception("callback key is null or empty"));
                 return;
             }
 

@@ -42,68 +42,89 @@ public class Integration_FPCallback {
 	 *  FPData
 	 */
 	[UnityTest]
-	public IEnumerator Add_Exec_Callback() {
+	public IEnumerator Callback_Add_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Exec", new FPData());
 
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Remove_Add_Exec_Callback() {
+	public IEnumerator Callback_Add_Add_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Remove_Add_Exec_Callback", (cbd) => {
+		CallbackDelegate callback = (cbd) => {
 
-			count++;
-		}, 1 * 1000);
+            count++;
+        };
 
-		this._callback.RemoveCallback();
-		this._callback.AddCallback("Add_Remove_Add_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Add_Exec_1", callback, 1 * 1000);
+		this._callback.AddCallback("Callback_Add_Add_Exec_2", callback, 1 * 1000);
 
-			count++;
-		}, 1 * 1000);
-
-		this._callback.ExecCallback("Add_Remove_Add_Exec_Callback", new FPData());
-		yield return new WaitForSeconds(0.5f);
-		Assert.AreEqual(1, count);
-	}
-
-	[UnityTest]
-	public IEnumerator Add_Exec_Add_Exec_Callback() {
-
-		int count = 0;
-		this._callback.AddCallback("Add_Exec_Add_Exec_Callback", (cbd) => {
-
-			count++;
-		}, 1 * 1000);
-
-		this._callback.ExecCallback("Add_Exec_Add_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Add_Exec_1", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 
-		this._callback.AddCallback("Add_Exec_Add_Exec_Callback", (cbd) => {
-
-			count++;
-		}, 1 * 1000);
-
-		this._callback.ExecCallback("Add_Exec_Add_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Add_Exec_2", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(2, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Timeout_Add_Exec_Callback() {
+	public IEnumerator Callback_Add_Remove_Add_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Timeout_Add_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Remove_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.RemoveCallback();
+		this._callback.AddCallback("Callback_Add_Remove_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.ExecCallback("Callback_Add_Remove_Add_Exec", new FPData());
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(1, count);
+	}
+
+	[UnityTest]
+	public IEnumerator Callback_Add_Exec_Add_Exec() {
+
+		int count = 0;
+		this._callback.AddCallback("Callback_Add_Exec_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.ExecCallback("Callback_Add_Exec_Add_Exec", new FPData());
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(1, count);
+
+		this._callback.AddCallback("Callback_Add_Exec_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.ExecCallback("Callback_Add_Exec_Add_Exec", new FPData());
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(2, count);
+	}
+
+	[UnityTest]
+	public IEnumerator Callback_Add_Timeout_Add_Exec() {
+
+		int count = 0;
+		this._callback.AddCallback("Callback_Add_Timeout_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
@@ -111,42 +132,42 @@ public class Integration_FPCallback {
 		yield return new WaitForSeconds(2.0f);
 		Assert.AreEqual(1, count);
 
-		this._callback.AddCallback("Add_Timeout_Add_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Timeout_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Timeout_Add_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Timeout_Add_Exec", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(2, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Exec_Exec_Callback() {
+	public IEnumerator Callback_Add_Exec_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Exec_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Exec_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Exec_Exec_Callback", new FPData());
-		this._callback.ExecCallback("Add_Exec_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Exec_Exec", new FPData());
+		this._callback.ExecCallback("Callback_Add_Exec_Exec", new FPData());
 
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Exec_Timeout_Callback() {
+	public IEnumerator Callback_Add_Exec_Timeout() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Exec_Timeout_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Exec_Timeout", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Exec_Timeout_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Exec_Timeout", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 
@@ -155,26 +176,26 @@ public class Integration_FPCallback {
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Remove_Exec_Callback() {
+	public IEnumerator Callback_Add_Remove_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Remove_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Remove_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
 		this._callback.RemoveCallback();
-		this._callback.ExecCallback("Add_Remove_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Remove_Exec", new FPData());
 
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(0, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Remove_Timeout_Callback() {
+	public IEnumerator Callback_Add_Remove_Timeout() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Remove_Timeout_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Remove_Timeout", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
@@ -185,10 +206,10 @@ public class Integration_FPCallback {
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Timeout_Exec_Callback() {
+	public IEnumerator Callback_Add_Timeout_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Timeout_Exec_Callback", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Timeout_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
@@ -196,7 +217,7 @@ public class Integration_FPCallback {
 		yield return new WaitForSeconds(2.0f);
 		Assert.AreEqual(1, count);
 
-		this._callback.ExecCallback("Add_Timeout_Exec_Callback", new FPData());
+		this._callback.ExecCallback("Callback_Add_Timeout_Exec", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 	}
@@ -206,68 +227,89 @@ public class Integration_FPCallback {
 	 *  Exception
 	 */
 	[UnityTest]
-	public IEnumerator Add_Exec_Exception() {
+	public IEnumerator Exception_Add_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Exec_Exception", new Exception("Add_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Exec", new Exception("Exception_Add_Exec"));
 
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Remove_Add_Exec_Exception() {
+	public IEnumerator Exception_Add_Add_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Remove_Add_Exec_Exception", (cbd) => {
+		CallbackDelegate callback = (cbd) => {
 
-			count++;
-		}, 1 * 1000);
+            count++;
+        };
 
-		this._callback.RemoveCallback();
-		this._callback.AddCallback("Add_Remove_Add_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Add_Exec_1", callback, 1 * 1000);
+		this._callback.AddCallback("Exception_Add_Add_Exec_2", callback, 1 * 1000);
 
-			count++;
-		}, 1 * 1000);
-
-		this._callback.ExecCallback("Add_Remove_Add_Exec_Exception", new Exception("Add_Remove_Add_Exec_Exception"));
-		yield return new WaitForSeconds(0.5f);
-		Assert.AreEqual(1, count);
-	}
-
-	[UnityTest]
-	public IEnumerator Add_Exec_Add_Exec_Exception() {
-
-		int count = 0;
-		this._callback.AddCallback("Add_Exec_Add_Exec_Exception", (cbd) => {
-
-			count++;
-		}, 1 * 1000);
-
-		this._callback.ExecCallback("Add_Exec_Add_Exec_Exception", new Exception("Add_Exec_Add_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Add_Exec_1", new Exception("Exception_Add_Add_Exec"));
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 
-		this._callback.AddCallback("Add_Exec_Add_Exec_Exception", (cbd) => {
-
-			count++;
-		}, 1 * 1000);
-
-		this._callback.ExecCallback("Add_Exec_Add_Exec_Exception", new Exception("Add_Exec_Add_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Add_Exec_2", new Exception("Exception_Add_Add_Exec"));
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(2, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Timeout_Add_Exec_Exception() {
+	public IEnumerator Exception_Add_Remove_Add_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Timeout_Add_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Remove_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.RemoveCallback();
+		this._callback.AddCallback("Exception_Add_Remove_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.ExecCallback("Exception_Add_Remove_Add_Exec", new Exception("Exception_Add_Remove_Add_Exec"));
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(1, count);
+	}
+
+	[UnityTest]
+	public IEnumerator Exception_Add_Exec_Add_Exec() {
+
+		int count = 0;
+		this._callback.AddCallback("Exception_Add_Exec_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.ExecCallback("Exception_Add_Exec_Add_Exec", new Exception("Exception_Add_Exec_Add_Exec"));
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(1, count);
+
+		this._callback.AddCallback("Exception_Add_Exec_Add_Exec", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+
+		this._callback.ExecCallback("Exception_Add_Exec_Add_Exec", new Exception("Exception_Add_Exec_Add_Exec"));
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(2, count);
+	}
+
+	[UnityTest]
+	public IEnumerator Exception_Add_Timeout_Add_Exec() {
+
+		int count = 0;
+		this._callback.AddCallback("Exception_Add_Timeout_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
@@ -275,42 +317,42 @@ public class Integration_FPCallback {
 		yield return new WaitForSeconds(2.0f);
 		Assert.AreEqual(1, count);
 
-		this._callback.AddCallback("Add_Timeout_Add_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Timeout_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Timeout_Add_Exec_Exception", new Exception("Add_Timeout_Add_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Timeout_Add_Exec", new Exception("Exception_Add_Timeout_Add_Exec"));
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(2, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Exec_Exec_Exception() {
+	public IEnumerator Exception_Add_Exec_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Exec_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Exec_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Exec_Exec_Exception", new Exception("Add_Exec_Exec_Exception"));
-		this._callback.ExecCallback("Add_Exec_Exec_Exception", new Exception("Add_Exec_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Exec_Exec", new Exception("Exception_Add_Exec_Exec"));
+		this._callback.ExecCallback("Exception_Add_Exec_Exec", new Exception("Exception_Add_Exec_Exec"));
 
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Exec_Timeout_Exception() {
+	public IEnumerator Exception_Add_Exec_Timeout() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Exec_Timeout_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Exec_Timeout", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Add_Exec_Timeout_Exception", new Exception("Add_Exec_Timeout_Exception"));
+		this._callback.ExecCallback("Exception_Add_Exec_Timeout", new Exception("Exception_Add_Exec_Timeout"));
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 
@@ -319,26 +361,26 @@ public class Integration_FPCallback {
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Remove_Exec_Exception() {
+	public IEnumerator Exception_Add_Remove_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Remove_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Remove_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
 		this._callback.RemoveCallback();
-		this._callback.ExecCallback("Add_Remove_Exec_Exception", new Exception("Add_Remove_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Remove_Exec", new Exception("Exception_Add_Remove_Exec"));
 
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(0, count);
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Remove_Timeout_Exception() {
+	public IEnumerator Exception_Add_Remove_Timeout() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Remove_Timeout_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Remove_Timeout", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
@@ -349,10 +391,10 @@ public class Integration_FPCallback {
 	}
 
 	[UnityTest]
-	public IEnumerator Add_Timeout_Exec_Exception() {
+	public IEnumerator Exception_Add_Timeout_Exec() {
 
 		int count = 0;
-		this._callback.AddCallback("Add_Timeout_Exec_Exception", (cbd) => {
+		this._callback.AddCallback("Exception_Add_Timeout_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
@@ -360,7 +402,7 @@ public class Integration_FPCallback {
 		yield return new WaitForSeconds(2.0f);
 		Assert.AreEqual(1, count);
 
-		this._callback.ExecCallback("Add_Timeout_Exec_Exception", new Exception("Add_Timeout_Exec_Exception"));
+		this._callback.ExecCallback("Exception_Add_Timeout_Exec", new Exception("Exception_Add_Timeout_Exec"));
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 	}

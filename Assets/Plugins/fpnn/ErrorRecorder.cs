@@ -12,7 +12,13 @@ namespace com.fpnn {
         public override void recordError(Exception e) {
 
             //TODO
+
+            // Unity
             // UnityEngine.Debug.LogError(e);
+
+            // C#
+            // Console.WriteLine(e.Message);
+            // Console.WriteLine(e.StackTrace);
         }
     }
 

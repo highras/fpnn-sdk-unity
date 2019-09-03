@@ -15,6 +15,18 @@ namespace com.fpnn {
 
         public void AddListener(string type, EventDelegate lisr) {
 
+            if (string.IsNullOrEmpty(type)) {
+
+                ErrorRecorderHolder.recordError(new Exception("event type is null or empty"));
+                return;
+            }
+
+            if (lisr == null) {
+
+                ErrorRecorderHolder.recordError(new Exception("EventDelegate is null"));
+                return;
+            }
+
             ArrayList queue = null;
 
             lock(self_locker) {
@@ -43,6 +55,12 @@ namespace com.fpnn {
 
         public void RemoveListener(string type) {
 
+            if (string.IsNullOrEmpty(type)) {
+
+                ErrorRecorderHolder.recordError(new Exception("event type is null or empty"));
+                return;
+            }
+
             lock (self_locker) {
 
                 this._listeners.Remove(type);
@@ -50,6 +68,18 @@ namespace com.fpnn {
         }
 
         public void RemoveListener(string type, EventDelegate lisr) {
+
+            if (string.IsNullOrEmpty(type)) {
+
+                ErrorRecorderHolder.recordError(new Exception("event type is null or empty"));
+                return;
+            }
+
+            if (lisr == null) {
+
+                ErrorRecorderHolder.recordError(new Exception("EventDelegate is null"));
+                return;
+            }
 
             ArrayList queue = null;
 
@@ -72,9 +102,21 @@ namespace com.fpnn {
         }
 
         public void FireEvent(EventData evd) {
+
+            if (evd == null) {
+
+                ErrorRecorderHolder.recordError(new Exception("EventData is null or empty"));
+                return;
+            }
             
             ArrayList queue = null;
             string type = evd.GetEventType();
+
+            if (string.IsNullOrEmpty(type)) {
+
+                ErrorRecorderHolder.recordError(new Exception("event type is null or empty"));
+                return;
+            }
 
             lock (self_locker) {
 

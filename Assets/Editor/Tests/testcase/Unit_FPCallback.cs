@@ -55,7 +55,7 @@ public class Unit_FPCallback {
     public void AddCallback_SimpleKey() {
 
         int count = 0;
-        this._callback.AddCallback("SimpleKey", (cbd) => {
+        this._callback.AddCallback("AddCallback_SimpleKey", (cbd) => {
 
             count++;
         }, 1 * 1000);
@@ -63,13 +63,16 @@ public class Unit_FPCallback {
     }
 
     [Test]
-    public void AddCallback_AnotherKey() {
+    public void AddCallback_SameCallback() {
 
         int count = 0;
-        this._callback.AddCallback("AnotherKey", (cbd) => {
+        CallbackDelegate callback = (cbd) => {
 
             count++;
-        }, 1 * 1000);
+        };
+
+        this._callback.AddCallback("AddCallback_SameCallback_1", callback, 1 * 1000);
+        this._callback.AddCallback("AddCallback_SameCallback_2", callback, 1 * 1000);
         Assert.AreEqual(0, count);
     }
 
@@ -77,7 +80,11 @@ public class Unit_FPCallback {
     public void AddCallback_SameKey() {
 
         int count = 0;
-        this._callback.AddCallback("AnotherKey", (cbd) => {
+        this._callback.AddCallback("AddCallback_SameKey", (cbd) => {
+
+            count++;
+        }, 1 * 1000);
+        this._callback.AddCallback("AddCallback_SameKey", (cbd) => {
 
             count++;
         }, 1 * 1000);
@@ -88,7 +95,7 @@ public class Unit_FPCallback {
     public void AddCallback_NullCallback() {
 
         int count = 0;
-        this._callback.AddCallback("NullCallback", null, 1 * 1000);
+        this._callback.AddCallback("AddCallback_NullCallback", null, 1 * 1000);
         Assert.AreEqual(0, count);
     }
 
@@ -96,7 +103,7 @@ public class Unit_FPCallback {
     public void AddCallback_ZeroTimeout() {
 
         int count = 0;
-        this._callback.AddCallback("ZeroTimeout", (cbd) => {
+        this._callback.AddCallback("AddCallback_ZeroTimeout", (cbd) => {
 
             count++;
         }, 0);
@@ -107,7 +114,7 @@ public class Unit_FPCallback {
     public void AddCallback_NegativeTimeout() {
 
         int count = 0;
-        this._callback.AddCallback("NegativeTimeout", (cbd) => {
+        this._callback.AddCallback("AddCallback_NegativeTimeout", (cbd) => {
 
             count++;
         }, -1);
@@ -138,7 +145,7 @@ public class Unit_FPCallback {
     public void ExecFPData_SimpleKey() {
 
         int count = 0;
-        this._callback.ExecCallback("SimpleKey", new FPData());
+        this._callback.ExecCallback("ExecFPData_SimpleKey", new FPData());
         Assert.AreEqual(0, count);
     }
 
