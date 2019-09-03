@@ -16,7 +16,7 @@ public class Unit_CallbackData {
     public void TearDown() {}
 
     [Test]
-    public void CallbackData_FPData() {
+    public void CallbackData_Data() {
 
         CallbackData cbd = new CallbackData(new FPData());
 
@@ -38,7 +38,7 @@ public class Unit_CallbackData {
     }
 
     [Test]
-    public void CallbackData_Object() {
+    public void CallbackData_Payload() {
 
         CallbackData cbd = new CallbackData(new object());
         
