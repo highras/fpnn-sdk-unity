@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Threading;
 using GameDevWare.Serialization;
 
-namespace com.fpnn
+using com.fpnn;
+
+namespace com.test
 {
     public class singleClientConcurrentTest
     {

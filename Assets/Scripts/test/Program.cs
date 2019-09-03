@@ -4,9 +4,11 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using GameDevWare.Serialization;
+
+using com.fpnn;
 using UnityEngine;
 
-namespace com.fpnn
+namespace com.test
 {
     class Program
     {

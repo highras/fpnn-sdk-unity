@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Threading;
 using GameDevWare.Serialization;
 
+using com.fpnn;
 using UnityEngine;
 
-namespace com.fpnn
+namespace com.test
 {
     public class asyncStressClient
     {
