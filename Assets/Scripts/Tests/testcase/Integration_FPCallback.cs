@@ -102,24 +102,41 @@ public class Integration_FPCallback {
 	}
 
 	[UnityTest]
-	public IEnumerator Callback_Add_Exec_Add_Exec() {
+	public IEnumerator Callback_Add_Exec_Add() {
 
 		int count = 0;
-		this._callback.AddCallback("Callback_Add_Exec_Add_Exec", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Exec_Add", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+		this._callback.ExecCallback("Callback_Add_Exec_Add", new FPData());
+		this._callback.AddCallback("Callback_Add_Exec_Add", (cbd) => {
+
+			count++;
+		}, 1 * 1000);
+		yield return new WaitForSeconds(0.5f);
+		Assert.AreEqual(1, count);
+	}
+
+	[UnityTest]
+	public IEnumerator Callback_Add_Exec_Delay_Add_Exec() {
+
+		int count = 0;
+		this._callback.AddCallback("Callback_Add_Exec_Delay_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Callback_Add_Exec_Add_Exec", new FPData());
+		this._callback.ExecCallback("Callback_Add_Exec_Delay_Add_Exec", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(1, count);
 
-		this._callback.AddCallback("Callback_Add_Exec_Add_Exec", (cbd) => {
+		this._callback.AddCallback("Callback_Add_Exec_Delay_Add_Exec", (cbd) => {
 
 			count++;
 		}, 1 * 1000);
 
-		this._callback.ExecCallback("Callback_Add_Exec_Add_Exec", new FPData());
+		this._callback.ExecCallback("Callback_Add_Exec_Delay_Add_Exec", new FPData());
 		yield return new WaitForSeconds(0.5f);
 		Assert.AreEqual(2, count);
 	}
