@@ -55,24 +55,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\Tests\fpnn\callback\CallbackData.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\callback\FPCallback.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\ErrorRecorder.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\event\EventData.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\event\FPEvent.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPClient.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPConfig.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPData.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPEncryptor.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPManager.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPPackage.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPProcessor.cs" />
-     <Compile Include="Assets\Editor\Tests\fpnn\FPSocket.cs" />
-     <Compile Include="Assets\Editor\Tests\testcase\Integration_FPCallback.cs" />
-     <Compile Include="Assets\Editor\Tests\testcase\Unit_CallbackData.cs" />
-     <Compile Include="Assets\Editor\Tests\testcase\Unit_EventData.cs" />
-     <Compile Include="Assets\Editor\Tests\testcase\Unit_FPCallback.cs" />
-     <Compile Include="Assets\Editor\Tests\testcase\Unit_FPEvent.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\callback\CallbackData.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\callback\FPCallback.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\ErrorRecorder.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\event\EventData.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\event\FPEvent.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPClient.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPConfig.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPData.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPEncryptor.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPManager.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPPackage.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPProcessor.cs" />
+     <Compile Include="Assets\Scripts\Tests\fpnn\FPSocket.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPCallback.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_CallbackData.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_EventData.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPCallback.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEvent.cs" />
  <Reference Include="UnityEngine.TestRunner">
  <HintPath>/Users/di.zhao/Documents/repo/Bitbucket/infra-fpnn-sdk/Unity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
