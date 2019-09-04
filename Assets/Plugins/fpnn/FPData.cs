@@ -95,12 +95,13 @@ namespace com.fpnn {
 
         public void SetMethod(string value) {
 
-            this._method = value;
+            if (string.IsNullOrEmpty(value)) {
 
-            if (this._method != null) {
-
-                this.SetSS(System.Text.Encoding.UTF8.GetBytes(this._method).Length);
+                return;
             }
+
+            this._method = value;
+            this.SetSS(System.Text.Encoding.UTF8.GetBytes(this._method).Length);
         }
 
 
@@ -113,7 +114,10 @@ namespace com.fpnn {
 
         public void SetSeq(int value) {
 
-            this._seq = value;
+            if (value >= 0) {
+
+                this._seq = value;
+            }
         }
 
 
@@ -126,10 +130,14 @@ namespace com.fpnn {
 
         public void SetPayload(byte[] value) {
 
-            this._msgpack_data = value;
+            if (value == null) {
 
-            if (this._msgpack_data != null) {
+                return;
+            }
 
+            if (value.Length > 0) {
+
+                this._msgpack_data = value;
                 this._psize = this._msgpack_data.Length;
             }
         }
@@ -144,12 +152,13 @@ namespace com.fpnn {
 
         public void SetPayload(string value) {
 
-            this._json_data = value;
+            if (string.IsNullOrEmpty(value)) {
 
-            if (this._json_data != null) {
-
-                this._psize = System.Text.Encoding.UTF8.GetBytes(this._json_data).Length;
+                return;
             }
+
+            this._json_data = value;
+            this._psize = System.Text.Encoding.UTF8.GetBytes(this._json_data).Length;
         }
 
 
@@ -162,7 +171,10 @@ namespace com.fpnn {
 
         public void SetPsize(int value) {
 
-            this._psize = value;
+            if (value >= 0) {
+
+                this._psize = value;
+            }
         }
 
 
@@ -175,7 +187,10 @@ namespace com.fpnn {
 
         public void SetPkgLen(int value) {
 
-            this._pkgLen = value;
+            if (value >= 0) {
+
+                this._pkgLen = value;
+            }
         }
 
         public byte[] Bytes;
