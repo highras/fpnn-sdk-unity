@@ -13,7 +13,15 @@ namespace com.fpnn {
 
         public void SetMagic(byte[] value) {
 
-            this._magic = value;
+            if (value == null) {
+
+                return;
+            }
+
+            if (value.Length > 0) {
+
+                this._magic = value;
+            }
         }
 
 
@@ -26,7 +34,10 @@ namespace com.fpnn {
 
         public void SetVersion(int value) {
 
-            this._version = value;
+            if (value > 0) {
+
+                this._version = value;
+            }
         }
 
 
@@ -39,7 +50,10 @@ namespace com.fpnn {
 
         public void SetFlag(int value) {
 
-            this._flag = value;
+            if (value >= 0 && value < 2) {
+
+                this._flag = value;
+            }
         }
 
 
@@ -52,7 +66,10 @@ namespace com.fpnn {
 
         public void SetMtype(int value) {
 
-            this._mtype = value;
+            if (value >= 0 && value <= 2) {
+
+                this._mtype = value;
+            }
         }
 
 

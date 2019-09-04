@@ -2,7 +2,7 @@ using System;
 
 namespace com.fpnn {
     
-    public class EventData {    
+    public class EventData {
 
         private string _type;
 
