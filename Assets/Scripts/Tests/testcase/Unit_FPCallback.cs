@@ -157,7 +157,7 @@ public class Unit_FPCallback {
     public void ExecException_EmptyKey() {
 
         int count = 0;
-        this._callback.ExecCallback("", new Exception("ExecException_EmptyKey"));
+        this._callback.ExecCallback("", new Exception());
         Assert.AreEqual(0, count);
     }
 
@@ -165,7 +165,7 @@ public class Unit_FPCallback {
     public void ExecException_NullKey() {
 
         int count = 0;
-        this._callback.ExecCallback(null, new Exception("ExecException_NullKey"));
+        this._callback.ExecCallback(null, new Exception());
         Assert.AreEqual(0, count);
     }
 
@@ -173,7 +173,7 @@ public class Unit_FPCallback {
     public void ExecException_SimpleKey() {
 
         int count = 0;
-        this._callback.ExecCallback("SimpleKey", new Exception("ExecException_SimpleKey"));
+        this._callback.ExecCallback("SimpleKey", new Exception());
         Assert.AreEqual(0, count);
     }
 

@@ -44,7 +44,7 @@ public class Unit_EventData {
     [Test]
     public void EventData_Type_Exception() {
 
-        EventData evd = new EventData("EventData_Type_Exception", new Exception("EventData_Type_Exception"));
+        EventData evd = new EventData("EventData_Type_Exception", new Exception());
 
         Assert.AreEqual("EventData_Type_Exception", evd.GetEventType());
         Assert.IsNull(evd.GetData());

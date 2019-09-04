@@ -37,7 +37,7 @@ public class Integration_ErrorRecorder {
     public IEnumerator Error_Record_Default() {
 
         int count = 0;
-        ErrorRecorderHolder.recordError(new Exception("Error_Record_Default"));
+        ErrorRecorderHolder.recordError(new Exception());
 
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(0, count);
@@ -47,13 +47,13 @@ public class Integration_ErrorRecorder {
     public IEnumerator Error_Record_Set() {
 
         this._recorder.Count = 0;
-        ErrorRecorderHolder.recordError(new Exception("Error_Record_Set"));
+        ErrorRecorderHolder.recordError(new Exception());
         ErrorRecorderHolder.setInstance(this._recorder);
-        
+
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(0, this._recorder.Count);
 
-        ErrorRecorderHolder.recordError(new Exception("Error_Record_Set"));
+        ErrorRecorderHolder.recordError(new Exception());
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(1, this._recorder.Count);
     }
@@ -63,7 +63,7 @@ public class Integration_ErrorRecorder {
 
         this._recorder.Count = 0;
         ErrorRecorderHolder.setInstance(this._recorder);
-        ErrorRecorderHolder.recordError(new Exception("Error_Set_Record"));
+        ErrorRecorderHolder.recordError(new Exception());
 
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(1, this._recorder.Count);

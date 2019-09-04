@@ -29,7 +29,7 @@ public class Unit_CallbackData {
     [Test]
     public void CallbackData_Exception() {
 
-        CallbackData cbd = new CallbackData(new Exception("CallbackData_Exception"));
+        CallbackData cbd = new CallbackData(new Exception());
 
         Assert.IsNotNull(cbd.GetException());
         Assert.IsNull(cbd.GetData());
@@ -82,7 +82,7 @@ public class Unit_CallbackData {
         Assert.IsNull(cbd.GetData());
 
 
-        cbd = new CallbackData(new Exception("CheckException_Exception_NullData"));
+        cbd = new CallbackData(new Exception());
 
         cbd.CheckException(true, null);
         Assert.IsNotNull(cbd.GetException());
@@ -127,7 +127,7 @@ public class Unit_CallbackData {
         Assert.IsNull(cbd.GetException());
         Assert.IsNull(cbd.GetData());
 
-        cbd = new CallbackData(new Exception("CheckException_Exception_Data"));
+        cbd = new CallbackData(new Exception());
 
         cbd.CheckException(true, data);
         Assert.IsNotNull(cbd.GetException());
@@ -167,7 +167,7 @@ public class Unit_CallbackData {
         Assert.IsNull(cbd.GetException());
         Assert.IsNull(cbd.GetData());
 
-        cbd = new CallbackData(new Exception("CheckException_Exception_Data"));
+        cbd = new CallbackData(new Exception());
 
         cbd.CheckException(false, data);
         Assert.IsNotNull(cbd.GetException());
