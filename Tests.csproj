@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Tests\fpnn\FPPackage.cs" />
      <Compile Include="Assets\Scripts\Tests\fpnn\FPProcessor.cs" />
      <Compile Include="Assets\Scripts\Tests\fpnn\FPSocket.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Integration_ErrorRecorder.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPCallback.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPEvent.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_CallbackData.cs" />
