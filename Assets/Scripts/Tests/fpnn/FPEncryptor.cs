@@ -9,7 +9,13 @@ namespace com.fpnn {
 
         public FPEncryptor(FPPackage pkg) {
 
-            this._pkg = pkg;
+            if (pkg != null) {
+
+                this._pkg = pkg;
+            } else {
+
+                this._pkg = new FPPackage();
+            }
         }
 
         public void Clear() {
@@ -64,10 +70,14 @@ namespace com.fpnn {
 
         public FPData PeekHead(FPData peek) {
 
-            if (this._cryptoed) {
+            if (this._cryptoed && peek != null) {
 
                 FPData data = this._pkg.PeekHead(peek.Bytes);
-                data.Bytes = this._pkg.GetByteArrayRange(peek.Bytes, 0, peek.Bytes.Length - 1);
+
+                if (data != null) {
+
+                    data.Bytes = this._pkg.GetByteArrayRange(peek.Bytes, 0, peek.Bytes.Length - 1);
+                }
 
                 return data;
             }

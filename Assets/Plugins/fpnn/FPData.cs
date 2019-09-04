@@ -193,6 +193,6 @@ namespace com.fpnn {
             }
         }
 
-        public byte[] Bytes;
+        public byte[] Bytes = new byte[0];
     }
 }

@@ -280,6 +280,17 @@ public class Unit_FPData {
     }
 
     [Test]
+    public void FPData_MsgpackPayload_NullValue() {
+
+        byte[] nullValue = null;
+        byte[] payload = new byte[10];
+
+        this._data.SetPayload(payload);
+        this._data.SetPayload(nullValue);
+        Assert.AreEqual(payload, this._data.MsgpackPayload());
+    }
+
+    [Test]
     public void FPData_MsgpackPayload_SimpleValue() {
 
     	byte[] payload = new byte[10];
@@ -306,6 +317,15 @@ public class Unit_FPData {
     	this._data.SetPayload("{}");
     	this._data.SetPayload("");
     	Assert.AreEqual("{}", this._data.JsonPayload());
+    }
+
+    [Test]
+    public void FPData_JsonPayload_NullValue() {
+
+        string value = null;
+        this._data.SetPayload("{}");
+        this._data.SetPayload(value);
+        Assert.AreEqual("{}", this._data.JsonPayload());
     }
 
     [Test]
