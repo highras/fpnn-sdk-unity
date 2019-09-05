@@ -69,7 +69,7 @@ public class Unit_FPData {
 
     	this._data.SetVersion(1);
     	this._data.SetVersion(0);
-        Assert.AreEqual(1, this._data.GetVersion());
+        Assert.AreEqual(0, this._data.GetVersion());
     }
 
     [Test]

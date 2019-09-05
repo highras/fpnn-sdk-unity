@@ -34,7 +34,7 @@ namespace com.fpnn {
 
         public void SetVersion(int value) {
 
-            if (value > 0) {
+            if (value >= 0) {
 
                 this._version = value;
             }

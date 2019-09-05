@@ -87,7 +87,7 @@ namespace com.fpnn {
 
         private FPData CommonPeekHead(byte[] bytes) {
 
-            if (bytes.Length == 12) {
+            if (bytes != null && bytes.Length == 12) {
 
                 FPData data = this._pkg.PeekHead(bytes);
 
@@ -126,7 +126,7 @@ namespace com.fpnn {
 
         private FPData CryptoPeekHead(byte[] bytes) {
 
-            if (bytes.Length >= 4) {
+            if (bytes != null && bytes.Length >= 4) {
 
                 FPData data = new FPData();
 

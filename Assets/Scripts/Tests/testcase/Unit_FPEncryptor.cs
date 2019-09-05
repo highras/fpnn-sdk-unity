@@ -50,6 +50,24 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
+    public void FPEncryptor_PeekHead_NullBytes_NoCryptoed() {
+
+        byte[] bytes = null;
+        this._cry.SetCryptoed(false);
+        FPData data = this._cry.PeekHead(bytes);
+        Assert.IsNull(data);
+    }
+
+    [Test]
+    public void FPEncryptor_PeekHead_NullBytes_Cryptoed() {
+
+        byte[] bytes = null;
+        this._cry.SetCryptoed(true);
+        FPData data = this._cry.PeekHead(bytes);
+        Assert.IsNull(data);
+    }
+
+    [Test]
     public void FPEncryptor_PeekHead_0Bytes_NoCryptoed() {
 
         this._cry.SetCryptoed(false);

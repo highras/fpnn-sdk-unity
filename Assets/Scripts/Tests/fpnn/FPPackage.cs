@@ -11,42 +11,79 @@ namespace com.fpnn {
 
         public string GetKeyCallback(FPData data) {
 
+            string seq = "0";
+
+            if (data != null) {
+
+                seq = Convert.ToString(data.GetSeq());
+            }
+
             StringBuilder sb = new StringBuilder(10);
 
             sb.Append("FPNN_");
-            sb.Append(Convert.ToString(data.GetSeq()));
+            sb.Append(seq);
 
             return sb.ToString();
         }
 
         public bool IsHttp(FPData data) {
 
-            return BytesCompare(FPConfig.HTTP_MAGIC, data.GetMagic());
+            if (data != null) {
+
+                return BytesCompare(FPConfig.HTTP_MAGIC, data.GetMagic());
+            }
+
+            return false;
         }
 
         public bool IsTcp(FPData data) {
 
-            return BytesCompare(FPConfig.TCP_MAGIC, data.GetMagic());
+            if (data != null) {
+
+                return BytesCompare(FPConfig.TCP_MAGIC, data.GetMagic());
+            }
+
+            return false;
         }
 
         public bool IsMsgPack(FPData data) {
 
-            return 1 == data.GetFlag();
+            if (data != null) {
+
+                return 1 == data.GetFlag();
+            }
+
+            return false;
         }
 
         public bool IsJson(FPData data) {
 
-            return 0 == data.GetFlag();
+            if (data != null) {
+
+                return 0 == data.GetFlag();
+            }
+
+            return false;
         }
 
         public bool IsOneWay(FPData data) {
 
-            return 0 == data.GetMtype();
+            if (data != null) {
+
+                return 0 == data.GetMtype();
+            }
+
+            return false;
         }
 
         public bool IsTwoWay(FPData data) {
 
-            return 1 == data.GetMtype();
+            if (data != null) {
+
+                return 1 == data.GetMtype();
+            }
+
+            return false;
         }
 
         public bool IsQuest(FPData data) {
@@ -56,7 +93,12 @@ namespace com.fpnn {
 
         public bool IsAnswer(FPData data) {
 
-            return 2 == data.GetMtype();
+            if (data != null) {
+
+                return 2 == data.GetMtype();
+            }
+
+            return false;
         }
 
         public bool IsSupportPack(FPData data) {
@@ -65,6 +107,11 @@ namespace com.fpnn {
         }
 
         public bool CheckVersion(FPData data) {
+
+            if (data == null) {
+
+                return false;
+            }
 
             if (data.GetVersion() < 0) {
 
@@ -81,50 +128,53 @@ namespace com.fpnn {
 
         public FPData PeekHead(byte[] bytes) {
 
-            if (bytes.Length < 12) {
+            if (bytes != null && bytes.Length >= 12) {
 
-                return null;
+                FPData peek = new FPData();
+
+                peek.SetMagic(this.GetByteArrayRange(bytes, 0, 3));
+                peek.SetVersion(Array.IndexOf(FPConfig.FPNN_VERSION, bytes[4]));
+
+                if (bytes[5] == FPConfig.FP_FLAG[0]) {
+
+                    peek.SetFlag(0);
+                }
+
+                if (bytes[5] == FPConfig.FP_FLAG[1]) {
+
+                    peek.SetFlag(1);
+                }
+
+                peek.SetMtype(Array.IndexOf(FPConfig.FP_MESSAGE_TYPE, bytes[6]));
+                peek.SetSS(bytes[7]);
+                peek.SetPsize((int)BitConverter.ToUInt32(this.GetByteArrayRange(bytes, 8, 11), 0));
+
+                return peek;
             }
 
-            FPData peek = new FPData();
-
-            peek.SetMagic(this.GetByteArrayRange(bytes, 0, 3));
-            peek.SetVersion(Array.IndexOf(FPConfig.FPNN_VERSION, bytes[4]));
-
-            if (bytes[5] == FPConfig.FP_FLAG[0]) {
-
-                peek.SetFlag(0);
-            }
-
-            if (bytes[5] == FPConfig.FP_FLAG[1]) {
-
-                peek.SetFlag(1);
-            }
-
-            peek.SetMtype(Array.IndexOf(FPConfig.FP_MESSAGE_TYPE, bytes[6]));
-            peek.SetSS(bytes[7]);
-            peek.SetPsize((int)BitConverter.ToUInt32(this.GetByteArrayRange(bytes, 8, 11), 0));
-
-            return peek;
+            return null;
         }
 
         public bool DeCode(FPData data) {
 
-            byte[] bytes = this.GetByteArrayRange(data.Bytes, 12, data.Bytes.Length - 1);
+            if (data != null) {
 
-            if (this.IsOneWay(data)) {
+                byte[] bytes = this.GetByteArrayRange(data.Bytes, 12, data.Bytes.Length - 1);
 
-                return this.DeCodeOneWay(bytes, data);
-            }
+                if (this.IsOneWay(data)) {
 
-            if (this.IsTwoWay(data)) {
+                    return this.DeCodeOneWay(bytes, data);
+                }
 
-                return this.DeCodeTwoWay(bytes, data);
-            }
+                if (this.IsTwoWay(data)) {
 
-            if (this.IsAnswer(data)) {
+                    return this.DeCodeTwoWay(bytes, data);
+                }
 
-                return this.DeCodeAnswer(bytes, data);
+                if (this.IsAnswer(data)) {
+
+                    return this.DeCodeAnswer(bytes, data);
+                }
             }
 
             return false;
@@ -132,69 +182,69 @@ namespace com.fpnn {
 
         private bool DeCodeOneWay(byte[] bytes, FPData data) {
 
-            if (bytes.Length != data.GetSS() + data.GetPsize()) {
+            if (bytes != null && (bytes.Length == data.GetSS() + data.GetPsize())) {
 
-                return false;
+                data.SetMethod(this.GetString(this.GetByteArrayRange(bytes, 0, data.GetSS() - 1)));
+
+                if (this.IsJson(data)) {
+
+                    data.SetPayload(this.GetString(this.GetByteArrayRange(bytes, data.GetSS(), bytes.Length - 1)));
+                    return true;
+                }
+
+                if (this.IsMsgPack(data)) {
+
+                    data.SetPayload(this.GetByteArrayRange(bytes, data.GetSS(), bytes.Length - 1));
+                    return true;
+                }
             }
 
-            data.SetMethod(this.GetString(this.GetByteArrayRange(bytes, 0, data.GetSS() - 1)));
-
-            if (this.IsJson(data)) {
-
-                data.SetPayload(this.GetString(this.GetByteArrayRange(bytes, data.GetSS(), bytes.Length - 1)));
-            }
-
-            if (this.IsMsgPack(data)) {
-
-                data.SetPayload(this.GetByteArrayRange(bytes, data.GetSS(), bytes.Length - 1));
-            }
-
-            return true;
+            return false;
         }
 
         private bool DeCodeTwoWay(byte[] bytes, FPData data) {
 
-            if (bytes.Length != 4 + data.GetSS() + data.GetPsize()) {
+            if (bytes != null && (bytes.Length == 4 + data.GetSS() + data.GetPsize())) {
 
-                return false;
+                data.SetSeq((int)BitConverter.ToUInt32(this.GetByteArrayRange(bytes, 0, 3), 0));
+                data.SetMethod(this.GetString(this.GetByteArrayRange(bytes, 4, data.GetSS() + 4 - 1)));
+
+                if (this.IsJson(data)) {
+
+                    data.SetPayload(this.GetString(this.GetByteArrayRange(bytes, 4 + data.GetSS(), bytes.Length - 1)));
+                    return true;
+                }
+
+                if (this.IsMsgPack(data)) {
+
+                    data.SetPayload(this.GetByteArrayRange(bytes, 4 + data.GetSS(), bytes.Length - 1));
+                    return true;
+                }
             }
 
-            data.SetSeq((int)BitConverter.ToUInt32(this.GetByteArrayRange(bytes, 0, 3), 0));
-            data.SetMethod(this.GetString(this.GetByteArrayRange(bytes, 4, data.GetSS() + 4 - 1)));
-
-            if (this.IsJson(data)) {
-
-                data.SetPayload(this.GetString(this.GetByteArrayRange(bytes, 4 + data.GetSS(), bytes.Length - 1)));
-            }
-
-            if (this.IsMsgPack(data)) {
-
-                data.SetPayload(this.GetByteArrayRange(bytes, 4 + data.GetSS(), bytes.Length - 1));
-            }
-
-            return true;
+            return false;
         }
 
         private bool DeCodeAnswer(byte[] bytes, FPData data) {
 
-            if (bytes.Length != 4 + data.GetPsize()) {
+            if (bytes != null && (bytes.Length == 4 + data.GetPsize())) {
 
-                return false;
+                data.SetSeq((int)BitConverter.ToUInt32(this.GetByteArrayRange(bytes, 0, 3), 0));
+
+                if (this.IsJson(data)) {
+
+                    data.SetPayload(this.GetString(this.GetByteArrayRange(bytes, 4, bytes.Length - 1)));
+                    return true;
+                }
+
+                if (this.IsMsgPack(data)) {
+
+                    data.SetPayload(this.GetByteArrayRange(bytes, 4, bytes.Length - 1));
+                    return true;
+                }
             }
 
-            data.SetSeq((int)BitConverter.ToUInt32(this.GetByteArrayRange(bytes, 0, 3), 0));
-
-            if (this.IsJson(data)) {
-
-                data.SetPayload(this.GetString(this.GetByteArrayRange(bytes, 4, bytes.Length - 1)));
-            }
-
-            if (this.IsMsgPack(data)) {
-
-                data.SetPayload(this.GetByteArrayRange(bytes, 4, bytes.Length - 1));
-            }
-
-            return true;
+            return false;
         }
 
         public byte[] EnCode(FPData data) {
@@ -219,95 +269,124 @@ namespace com.fpnn {
 
         private byte[] EnCodeOneway(FPData data) {
 
-            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            MemoryStream ms = this.BuildHeader(data, 12 + data.GetSS() + data.GetPsize());
+            if (data != null) {
 
-            ms.WriteByte((byte)data.GetSS());
+                System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
+                MemoryStream ms = this.BuildHeader(data, 12 + data.GetSS() + data.GetPsize());
 
-            byte[] psizeBytes = BitConverter.GetBytes(data.GetPsize());
-            ms.Write(psizeBytes, 0, psizeBytes.Length);
+                ms.WriteByte((byte)data.GetSS());
 
-            byte[] methodBytes = encoder.GetBytes(data.GetMethod());
-            ms.Write(methodBytes, 0, methodBytes.Length);
+                byte[] psizeBytes = BitConverter.GetBytes(data.GetPsize());
+                ms.Write(psizeBytes, 0, psizeBytes.Length);
 
-            byte[] payloadBytes = null;
+                string method = (data.GetMethod() != null) ? data.GetMethod() : "";
+                byte[] methodBytes = encoder.GetBytes(method);
+                ms.Write(methodBytes, 0, methodBytes.Length);
 
-            if (this.IsJson(data)) {
+                byte[] payloadBytes = null;
 
-                payloadBytes = encoder.GetBytes(data.JsonPayload());
+                if (this.IsJson(data)) {
+
+                    string json = (data.JsonPayload() != null) ? data.JsonPayload() : "";
+                    payloadBytes = encoder.GetBytes(json);
+                }
+
+                if (this.IsMsgPack(data)) {
+
+                    payloadBytes = data.MsgpackPayload();
+                }
+
+                if (payloadBytes != null) {
+
+                    ms.Write(payloadBytes, 0, payloadBytes.Length);
+                }
+
+                return this.StreamToBytes(ms);
             }
 
-            if (this.IsMsgPack(data)) {
-
-                payloadBytes = data.MsgpackPayload();
-            }
-
-            ms.Write(payloadBytes, 0, payloadBytes.Length);
-
-            return this.StreamToBytes(ms);
+            return null;
         }
 
         private byte[] EnCodeTwoway(FPData data) {
 
-            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            MemoryStream ms = this.BuildHeader(data, 16 + data.GetSS() + data.GetPsize());
+            if (data != null) {
 
-            ms.WriteByte((byte)data.GetSS());
+                System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
+                MemoryStream ms = this.BuildHeader(data, 16 + data.GetSS() + data.GetPsize());
 
-            byte[] psizeBytes = BitConverter.GetBytes(data.GetPsize());
-            ms.Write(psizeBytes, 0, psizeBytes.Length);
+                ms.WriteByte((byte)data.GetSS());
 
-            byte[] seqBytes = BitConverter.GetBytes (data.GetSeq());
-            ms.Write(seqBytes, 0, seqBytes.Length);
+                byte[] psizeBytes = BitConverter.GetBytes(data.GetPsize());
+                ms.Write(psizeBytes, 0, psizeBytes.Length);
 
-            byte[] methodBytes = encoder.GetBytes(data.GetMethod());
-            ms.Write(methodBytes, 0, methodBytes.Length);
+                byte[] seqBytes = BitConverter.GetBytes(data.GetSeq());
+                ms.Write(seqBytes, 0, seqBytes.Length);
 
-            byte[] payloadBytes = null;
+                string method = (data.GetMethod() != null) ? data.GetMethod() : "";
+                byte[] methodBytes = encoder.GetBytes(method);
+                ms.Write(methodBytes, 0, methodBytes.Length);
 
-            if (this.IsJson(data)) {
+                byte[] payloadBytes = null;
 
-                payloadBytes = encoder.GetBytes(data.JsonPayload());
+                if (this.IsJson(data)) {
+
+                    string json = (data.JsonPayload() != null) ? data.JsonPayload() : "";
+                    payloadBytes = encoder.GetBytes(json);
+                }
+
+                if (this.IsMsgPack(data)) {
+
+                    payloadBytes = data.MsgpackPayload();
+                }
+
+                if (payloadBytes != null) {
+
+                    ms.Write(payloadBytes, 0, payloadBytes.Length);
+                }
+
+                return this.StreamToBytes(ms);
             }
 
-            if (this.IsMsgPack(data)) {
-
-                payloadBytes = data.MsgpackPayload();
-            }
-
-            ms.Write(payloadBytes, 0, payloadBytes.Length);
-
-            return this.StreamToBytes(ms);
+            return null;
         }
 
         private byte[] EnCodeAnswer(FPData data) {
 
-            System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
-            MemoryStream ms = this.BuildHeader(data, 16 + data.GetPsize());
+            if (data != null) {
 
-            ms.WriteByte((byte)data.GetSS());
+                System.Text.ASCIIEncoding encoder = new System.Text.ASCIIEncoding();
+                MemoryStream ms = this.BuildHeader(data, 16 + data.GetPsize());
 
-            byte[] psizeBytes = BitConverter.GetBytes(data.GetPsize());
-            ms.Write(psizeBytes, 0, psizeBytes.Length);
+                ms.WriteByte((byte)data.GetSS());
 
-            byte[] seqBytes = BitConverter.GetBytes (data.GetSeq());
-            ms.Write(seqBytes, 0, seqBytes.Length);
+                byte[] psizeBytes = BitConverter.GetBytes(data.GetPsize());
+                ms.Write(psizeBytes, 0, psizeBytes.Length);
 
-            byte[] payloadBytes = null;
+                byte[] seqBytes = BitConverter.GetBytes(data.GetSeq());
+                ms.Write(seqBytes, 0, seqBytes.Length);
 
-            if (this.IsJson(data)) {
+                byte[] payloadBytes = null;
 
-                payloadBytes = encoder.GetBytes(data.JsonPayload());
+                if (this.IsJson(data)) {
+
+                    string json = (data.JsonPayload() != null) ? data.JsonPayload() : "";
+                    payloadBytes = encoder.GetBytes(json);
+                }
+
+                if (this.IsMsgPack(data)) {
+
+                    payloadBytes = data.MsgpackPayload();
+                }
+
+                if (payloadBytes != null) {
+
+                    ms.Write(payloadBytes, 0, payloadBytes.Length);
+                }
+
+                return this.StreamToBytes(ms);
             }
 
-            if (this.IsMsgPack(data)) {
-
-                payloadBytes = data.MsgpackPayload();
-            }
-
-            ms.Write(payloadBytes, 0, payloadBytes.Length);
-
-            return this.StreamToBytes(ms);
+            return null;
         }
 
 
@@ -338,45 +417,68 @@ namespace com.fpnn {
             }
 
             ms.WriteByte(FPConfig.FP_MESSAGE_TYPE[data.GetMtype()]);
-
             return ms;
         }
 
-        public UInt32 ReadUI32 (byte[] ui32in) {
+        private UInt32 ReadUI32 (byte[] ui32in) {
 
             return (UInt32)(((ui32in [0] & 0xff) << 24) | ((ui32in [1] & 0xff) << 16) | ((ui32in [2] & 0xff) << 8) | ((ui32in [3] & 0xff)));
         }
         
-        public UInt32 ReadUI32 (byte[] ui32in, int off) {
+        private UInt32 ReadUI32 (byte[] ui32in, int off) {
 
             return (UInt32)(((ui32in [off] & 0xff) << 24) | ((ui32in [off + 1] & 0xff) << 16) | ((ui32in [off + 2] & 0xff) << 8) | ((ui32in [off + 3] & 0xff)));
         }
 
-        public string GetString(byte[] bytes) {
+        private string GetString(byte[] bytes) {
 
-            return System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            string str = null;
+
+            try {
+
+                str = System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            } catch (Exception ex) {
+
+                ErrorRecorderHolder.recordError(ex);
+            }
+
+            return str;
         }
 
         public byte[] GetByteArrayRange(byte[] arr, int start, int end) {
 
-            byte[] arrNew = new byte[end - start + 1];
+            if (arr == null || arr.Length == 0) {
 
-            int j = 0;
-
-            for (int i = start; i <= end; i++) {
-
-                arrNew[j++] = arr[i];
+                return arr;
             }
 
-            return arrNew;
+            int len = end - start + 1;
+
+            if (len <= 0) {
+
+                return new byte[0];
+            }
+
+            byte[] subarr = new byte[len];
+
+            try {
+
+                Array.Copy(arr, start, subarr, 0, len);
+            } catch (Exception ex) {
+
+                subarr = new byte[0];
+                ErrorRecorderHolder.recordError(ex);
+            }
+
+            return subarr;
         }
 
-        public byte[] StreamToBytes(MemoryStream stream) {
+        private byte[] StreamToBytes(MemoryStream stream) {
 
             return ((MemoryStream)stream).ToArray();                
         }
 
-        public bool BytesCompare(byte[] b1, byte[] b2) {
+        private bool BytesCompare(byte[] b1, byte[] b2) {
 
             if (b1 == null || b2 == null) {
 
