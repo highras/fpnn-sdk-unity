@@ -157,6 +157,7 @@ namespace com.fpnn {
 
                 if (isClose) {
 
+                    this.Close(null);
                     return;
                 }
 
@@ -183,7 +184,7 @@ namespace com.fpnn {
             }
         }
 
-        public bool IsOpen() {
+        public bool IsConnected() {
 
             lock (socket_locker) {
 
@@ -242,6 +243,11 @@ namespace com.fpnn {
                         if (ex != null) {
 
                             this.OnError(ex);
+                        }
+
+                        if (this.IsConnecting()) {
+
+                            return;
                         }
 
                         try {
@@ -345,6 +351,11 @@ namespace com.fpnn {
         }
 
         public void Write(byte[] buffer) {
+
+            if (buffer == null || buffer.Length <= 0) {
+
+                return;
+            }
 
             lock (socket_locker) {
 

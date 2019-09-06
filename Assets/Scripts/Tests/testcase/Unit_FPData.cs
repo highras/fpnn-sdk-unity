@@ -25,13 +25,13 @@ public class Unit_FPData {
      *	Magic
      */
     [Test]
-    public void FPData_Magic_Default() {
+    public void Data_Magic_Default() {
 
         Assert.AreEqual(FPConfig.TCP_MAGIC, this._data.GetMagic());
     }
 
     [Test]
-    public void FPData_Magic_NullValue() {
+    public void Data_Magic_NullValue() {
 
     	this._data.SetMagic(FPConfig.TCP_MAGIC);
         this._data.SetMagic(null);
@@ -39,7 +39,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Magic_EmptyValue() {
+    public void Data_Magic_EmptyValue() {
 
     	this._data.SetMagic(FPConfig.TCP_MAGIC);
         this._data.SetMagic(new byte[0]);
@@ -47,7 +47,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Magic_SimpleValue() {
+    public void Data_Magic_SimpleValue() {
 
     	this._data.SetMagic(FPConfig.TCP_MAGIC);
         this._data.SetMagic(FPConfig.HTTP_MAGIC);
@@ -59,13 +59,13 @@ public class Unit_FPData {
      *	Version
      */
     [Test]
-    public void FPData_Version_Default() {
+    public void Data_Version_Default() {
 
         Assert.AreEqual(1, this._data.GetVersion());
     }
 
     [Test]
-    public void FPData_Version_ZeroValue() {
+    public void Data_Version_ZeroValue() {
 
     	this._data.SetVersion(1);
     	this._data.SetVersion(0);
@@ -73,7 +73,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Version_NegativeValue() {
+    public void Data_Version_NegativeValue() {
 
     	this._data.SetVersion(1);
     	this._data.SetVersion(-1);
@@ -81,7 +81,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Version_SimpleValue() {
+    public void Data_Version_SimpleValue() {
 
     	this._data.SetVersion(1);
     	this._data.SetVersion(2);
@@ -93,13 +93,13 @@ public class Unit_FPData {
      *	Flag
      */
     [Test]
-    public void FPData_Flag_Default() {
+    public void Data_Flag_Default() {
 
         Assert.AreEqual(1, this._data.GetFlag());
     }
 
     [Test]
-    public void FPData_Flag_ZeroValue() {
+    public void Data_Flag_ZeroValue() {
 
     	this._data.SetFlag(1);
     	this._data.SetFlag(0);
@@ -107,7 +107,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Flag_NegativeValue() {
+    public void Data_Flag_NegativeValue() {
 
     	this._data.SetFlag(1);
     	this._data.SetFlag(-1);
@@ -115,7 +115,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Flag_SimpleValue() {
+    public void Data_Flag_SimpleValue() {
 
     	this._data.SetFlag(0);
     	this._data.SetFlag(1);
@@ -123,7 +123,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Flag_OORValue() {
+    public void Data_Flag_OORValue() {
 
     	this._data.SetFlag(1);
     	this._data.SetFlag(2);
@@ -135,13 +135,13 @@ public class Unit_FPData {
      *	Mtype
      */
     [Test]
-    public void FPData_Mtype_Default() {
+    public void Data_Mtype_Default() {
 
         Assert.AreEqual(1, this._data.GetMtype());
     }
 
     [Test]
-    public void FPData_Mtype_ZeroValue() {
+    public void Data_Mtype_ZeroValue() {
 
     	this._data.SetMtype(1);
     	this._data.SetMtype(0);
@@ -149,7 +149,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Mtype_NegativeValue() {
+    public void Data_Mtype_NegativeValue() {
 
     	this._data.SetMtype(1);
     	this._data.SetMtype(-1);
@@ -157,7 +157,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Mtype_SimpleValue() {
+    public void Data_Mtype_SimpleValue() {
 
     	this._data.SetMtype(1);
     	this._data.SetMtype(2);
@@ -165,7 +165,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Mtype_OORValue() {
+    public void Data_Mtype_OORValue() {
 
     	this._data.SetMtype(1);
     	this._data.SetMtype(3);
@@ -177,13 +177,13 @@ public class Unit_FPData {
      *	SS
      */
     [Test]
-    public void FPData_SS_Default() {
+    public void Data_SS_Default() {
 
         Assert.AreEqual(0, this._data.GetSS());
     }
 
     [Test]
-    public void FPData_SS_NegativeValue() {
+    public void Data_SS_NegativeValue() {
 
     	this._data.SetSS(0);
     	this._data.SetSS(-1);
@@ -191,7 +191,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_SS_SimpleValue() {
+    public void Data_SS_SimpleValue() {
     	
     	this._data.SetSS(0);
     	this._data.SetSS(10);
@@ -203,13 +203,13 @@ public class Unit_FPData {
      *	Method
      */
     [Test]
-    public void FPData_Method_Default() {
+    public void Data_Method_Default() {
 
         Assert.IsNull(this._data.GetMethod());
     }
 
     [Test]
-    public void FPData_Method_EmptyValue() {
+    public void Data_Method_EmptyValue() {
 
     	this._data.SetMethod("FPData_Method_EmptyValue");
     	this._data.SetMethod("");
@@ -217,7 +217,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Method_NullValue() {
+    public void Data_Method_NullValue() {
 
     	this._data.SetMethod("FPData_Method_NullValue");
     	this._data.SetMethod(null);
@@ -225,7 +225,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Method_SimpleValue() {
+    public void Data_Method_SimpleValue() {
 
     	this._data.SetMethod("FPData_Method");
     	this._data.SetMethod("FPData_Method_SimpleValue");
@@ -238,13 +238,13 @@ public class Unit_FPData {
      *	Seq
      */
     [Test]
-    public void FPData_Seq_Default() {
+    public void Data_Seq_Default() {
 
         Assert.AreEqual(0, this._data.GetSeq());
     }
 
     [Test]
-    public void FPData_Seq_NegativeValue() {
+    public void Data_Seq_NegativeValue() {
 
     	this._data.SetSeq(0);
     	this._data.SetSeq(-1);
@@ -252,7 +252,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Seq_SimpleValue() {
+    public void Data_Seq_SimpleValue() {
 
     	this._data.SetSeq(0);
     	this._data.SetSeq(1);
@@ -264,13 +264,13 @@ public class Unit_FPData {
      *	MsgpackPayload
      */
     [Test]
-    public void FPData_MsgpackPayload_Default() {
+    public void Data_MsgpackPayload_Default() {
 
     	Assert.IsNull(this._data.MsgpackPayload());
     }
 
     [Test]
-    public void FPData_MsgpackPayload_EmptyValue() {
+    public void Data_MsgpackPayload_EmptyValue() {
 
     	byte[] payload = new byte[10];
 
@@ -280,7 +280,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_MsgpackPayload_NullValue() {
+    public void Data_MsgpackPayload_NullValue() {
 
         byte[] nullValue = null;
         byte[] payload = new byte[10];
@@ -291,7 +291,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_MsgpackPayload_SimpleValue() {
+    public void Data_MsgpackPayload_SimpleValue() {
 
     	byte[] payload = new byte[10];
     	
@@ -306,13 +306,13 @@ public class Unit_FPData {
      *	JsonPayload
      */
     [Test]
-    public void FPData_JsonPayload_Default() {
+    public void Data_JsonPayload_Default() {
 
     	Assert.IsNull(this._data.JsonPayload());
     }
 
     [Test]
-    public void FPData_JsonPayload_EmptyValue() {
+    public void Data_JsonPayload_EmptyValue() {
 
     	this._data.SetPayload("{}");
     	this._data.SetPayload("");
@@ -320,7 +320,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_JsonPayload_NullValue() {
+    public void Data_JsonPayload_NullValue() {
 
         string value = null;
         this._data.SetPayload("{}");
@@ -329,7 +329,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_JsonPayload_SimpleValue() {
+    public void Data_JsonPayload_SimpleValue() {
 
     	this._data.SetPayload("{}");
     	this._data.SetPayload("{[]}");
@@ -342,13 +342,13 @@ public class Unit_FPData {
      *	Psize
      */
     [Test]
-    public void FPData_Psize_Default() {
+    public void Data_Psize_Default() {
 
     	Assert.AreEqual(0, this._data.GetPsize());
     }
 
     [Test]
-    public void FPData_Psize_ZeroValue() {
+    public void Data_Psize_ZeroValue() {
 
     	this._data.SetPsize(1);
     	this._data.SetPsize(0);
@@ -356,7 +356,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Psize_NegativeValue() {
+    public void Data_Psize_NegativeValue() {
 
     	this._data.SetPsize(1);
     	this._data.SetPsize(-1);
@@ -364,7 +364,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_Psize_SimpleValue() {
+    public void Data_Psize_SimpleValue() {
 
     	this._data.SetPsize(1);
     	this._data.SetPsize(10);
@@ -376,13 +376,13 @@ public class Unit_FPData {
      *	PkgLen
      */
     [Test]
-    public void FPData_PkgLen_Default() {
+    public void Data_PkgLen_Default() {
 
     	Assert.AreEqual(0, this._data.GetPkgLen());
     }
 
     [Test]
-    public void FPData_PkgLen_ZeroValue() {
+    public void Data_PkgLen_ZeroValue() {
 
     	this._data.SetPkgLen(1);
     	this._data.SetPkgLen(0);
@@ -390,7 +390,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_PkgLen_NegativeValue() {
+    public void Data_PkgLen_NegativeValue() {
 
     	this._data.SetPkgLen(1);
     	this._data.SetPkgLen(-1);
@@ -398,7 +398,7 @@ public class Unit_FPData {
     }
 
     [Test]
-    public void FPData_PkgLen_SimpleValue() {
+    public void Data_PkgLen_SimpleValue() {
 
     	this._data.SetPkgLen(1);
     	this._data.SetPkgLen(100);

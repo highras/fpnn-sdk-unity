@@ -21,20 +21,20 @@ public class Unit_FPEncryptor {
     public void TearDown() {}
 
     [Test]
-    public void FPEncryptor_NullValue() {
+    public void Encryptor_NullValue() {
 
         FPEncryptor cry =  new FPEncryptor(null);
         Assert.IsNotNull(cry);
     }
 
     [Test]
-    public void FPEncryptor_Cryptoed_Default() {
+    public void Encryptor_Cryptoed_Default() {
 
         Assert.IsFalse(this._cry.GetCryptoed());
     }
 
     [Test]
-    public void FPEncryptor_Cryptoed_SimpleValue() {
+    public void Encryptor_Cryptoed_SimpleValue() {
 
         this._cry.SetCryptoed(false);
         this._cry.SetCryptoed(true);
@@ -42,7 +42,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_Clear() {
+    public void Encryptor_Clear() {
 
         this._cry.SetCryptoed(true);
         this._cry.Clear();
@@ -50,7 +50,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_NullBytes_NoCryptoed() {
+    public void Encryptor_PeekHead_NullBytes_NoCryptoed() {
 
         byte[] bytes = null;
         this._cry.SetCryptoed(false);
@@ -59,7 +59,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_NullBytes_Cryptoed() {
+    public void Encryptor_PeekHead_NullBytes_Cryptoed() {
 
         byte[] bytes = null;
         this._cry.SetCryptoed(true);
@@ -68,7 +68,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_0Bytes_NoCryptoed() {
+    public void Encryptor_PeekHead_0Bytes_NoCryptoed() {
 
         this._cry.SetCryptoed(false);
         FPData data = this._cry.PeekHead(new byte[0]);
@@ -76,7 +76,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_0Bytes_Cryptoed() {
+    public void Encryptor_PeekHead_0Bytes_Cryptoed() {
 
         this._cry.SetCryptoed(true);
         FPData data = this._cry.PeekHead(new byte[0]);
@@ -84,7 +84,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_10Bytes_NoCryptoed() {
+    public void Encryptor_PeekHead_10Bytes_NoCryptoed() {
 
         this._cry.SetCryptoed(false);
         FPData data = this._cry.PeekHead(new byte[10]);
@@ -92,7 +92,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_10Bytes_Cryptoed() {
+    public void Encryptor_PeekHead_10Bytes_Cryptoed() {
 
         this._cry.SetCryptoed(true);
         FPData data = this._cry.PeekHead(new byte[10]);
@@ -100,7 +100,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_16Bytes_NoCryptoed() {
+    public void Encryptor_PeekHead_16Bytes_NoCryptoed() {
 
         this._cry.SetCryptoed(false);
         FPData data = this._cry.PeekHead(new byte[16]);
@@ -108,7 +108,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_16Bytes_Cryptoed() {
+    public void Encryptor_PeekHead_16Bytes_Cryptoed() {
 
         this._cry.SetCryptoed(true);
         FPData data = this._cry.PeekHead(new byte[16]);
@@ -116,7 +116,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_EmptyData_NoCryptoed() {
+    public void Encryptor_PeekHead_EmptyData_NoCryptoed() {
 
         this._cry.SetCryptoed(false);
         FPData data = this._cry.PeekHead(new FPData());
@@ -124,7 +124,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_EmptyData_Cryptoed() {
+    public void Encryptor_PeekHead_EmptyData_Cryptoed() {
 
         this._cry.SetCryptoed(true);
         FPData data = this._cry.PeekHead(new FPData());
@@ -132,7 +132,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_NullData_NoCryptoed() {
+    public void Encryptor_PeekHead_NullData_NoCryptoed() {
 
         FPData nullData = null;
         this._cry.SetCryptoed(false);
@@ -141,7 +141,7 @@ public class Unit_FPEncryptor {
     }
 
     [Test]
-    public void FPEncryptor_PeekHead_NullData_Cryptoed() {
+    public void Encryptor_PeekHead_NullData_Cryptoed() {
 
         FPData nullData = null;
         this._cry.SetCryptoed(true);

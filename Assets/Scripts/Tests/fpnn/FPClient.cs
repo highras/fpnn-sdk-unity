@@ -20,7 +20,7 @@ namespace com.fpnn {
         private EventDelegate _eventDelegate;
 
         private FPPackage _pkg;
-        private FPEncryptor _cyr;
+        private FPEncryptor _cry;
         private FPProcessor _psr;
         private FPCallback _callback;
 
@@ -38,7 +38,7 @@ namespace com.fpnn {
         protected void Init(string host, int port, int connectionTimeout) {
 
             this._pkg = new FPPackage();
-            this._cyr = new FPEncryptor(_pkg);
+            this._cry = new FPEncryptor(_pkg);
             this._psr = new FPProcessor();
             this._callback = new FPCallback();
 
@@ -160,7 +160,7 @@ namespace com.fpnn {
             }
 
             byte[] buf = this._pkg.EnCode(data);
-            buf = this._cyr.EnCode(buf);
+            buf = this._cry.EnCode(buf);
 
             if (callback != null) {
 
@@ -187,7 +187,7 @@ namespace com.fpnn {
             }
 
             byte[] buf = this._pkg.EnCode(data);
-            buf = this._cyr.EnCode(buf);
+            buf = this._cry.EnCode(buf);
 
             if (buf != null) {
 
@@ -202,12 +202,12 @@ namespace com.fpnn {
 
         public bool IsOpen() {
 
-            return this._sock.IsOpen();
+            return this._sock.IsConnected();
         }
 
         public bool HasConnect() {
 
-            return this._sock.IsOpen() || this._sock.IsConnecting();
+            return this._sock.IsConnected() || this._sock.IsConnecting();
         }
 
         private void OnConnect(EventData evd) {
@@ -231,7 +231,7 @@ namespace com.fpnn {
                 this._seq = 0;
 
                 this._callback.RemoveCallback();
-                this._cyr.Clear();
+                this._cry.Clear();
             }
 
             try {
@@ -263,7 +263,7 @@ namespace com.fpnn {
 
         private void BuildHead(NetworkStream stream, FPData peek, byte[] buffer) {
 
-            peek = this._cyr.PeekHead(buffer);
+            peek = this._cry.PeekHead(buffer);
 
             if (peek == null) {
 
@@ -307,8 +307,8 @@ namespace com.fpnn {
 
         private void BuildData(NetworkStream stream, FPData peek) {
 
-            peek.Bytes = this._cyr.DeCode(peek.Bytes);
-            FPData data = this._cyr.PeekHead(peek);
+            peek.Bytes = this._cry.DeCode(peek.Bytes);
+            FPData data = this._cry.PeekHead(peek);
 
             if (!this._pkg.DeCode(data)) {
 
