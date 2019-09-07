@@ -19,6 +19,7 @@ public class Unit_FPSocket {
     [TearDown]
     public void TearDown() {}
 
+
     /**
      *  FPSocket(OnDataDelegate onData, string host, int port, int timeout)
      */
@@ -216,6 +217,10 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, errorCount);
     }
 
+
+    /**
+     *  Open()
+     */
     [Test]
     public void Socket_Open() {
 
@@ -246,6 +251,10 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, errorCount);
     }
 
+
+    /**
+     *  IsIPv6()
+     */
     [Test]
     public void Socket_IsIPv6() {
 
@@ -274,6 +283,10 @@ public class Unit_FPSocket {
         Assert.IsFalse(sock.IsIPv6());
     }
 
+
+    /**
+     *  IsConnected()
+     */
     [Test]
     public void Socket_IsConnected() {
 
@@ -302,6 +315,10 @@ public class Unit_FPSocket {
         Assert.IsFalse(sock.IsConnected());
     }
 
+
+    /**
+     *  IsConnecting()
+     */
     [Test]
     public void Socket_IsConnecting() {
 
@@ -330,8 +347,12 @@ public class Unit_FPSocket {
         Assert.IsTrue(sock.IsConnecting());
     }
 
+
+    /**
+     *  OnSecond(long timestamp)
+     */
     [Test]
-    public void Socket_OnSecond_ZeroTimeout() {
+    public void Socket_OnSecond_ZeroTimestamp() {
 
         int dataCount = 0;
         int connectCount = 0;
@@ -361,7 +382,7 @@ public class Unit_FPSocket {
     }
 
     [Test]
-    public void Socket_OnSecond_NegativeTimeout() {
+    public void Socket_OnSecond_NegativeTimestamp() {
 
         int dataCount = 0;
         int connectCount = 0;
@@ -382,7 +403,7 @@ public class Unit_FPSocket {
             errorCount++;
         };
 
-        sock.OnSecond(-1);
+        sock.OnSecond(-1567751446);
 
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
@@ -391,7 +412,7 @@ public class Unit_FPSocket {
     }
 
     [Test]
-    public void Socket_OnSecond_SimpleTimeout() {
+    public void Socket_OnSecond_SimpleTimestamp() {
 
         int dataCount = 0;
         int connectCount = 0;
@@ -420,6 +441,10 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, errorCount);
     }
 
+
+    /**
+     *  Close(Exception ex)
+     */
     [Test]
     public void Socket_Close_NullException() {
 
@@ -480,6 +505,10 @@ public class Unit_FPSocket {
         Assert.AreEqual(1, errorCount);
     }
 
+
+    /**
+     *  Write(byte[] buffer)
+     */
     [Test]
     public void Socket_Write_NullBytes() {
 
@@ -573,6 +602,10 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, errorCount);
     }
 
+
+    /**
+     *  ReadSocket(NetworkStream stream, byte[] buffer, int rlen, Action<byte[], int> calllback)
+     */
     [Test]
     public void Socket_ReadSocket_NullStream() {
 

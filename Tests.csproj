@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_ErrorRecorder.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPCallback.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPEvent.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPProcessor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPSocket.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_CallbackData.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_EventData.cs" />
@@ -79,6 +80,7 @@
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEncryptor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEvent.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPPackage.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPProcessor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPSocket.cs" />
  <Reference Include="UnityEngine.TestRunner">
  <HintPath>/Users/di.zhao/Documents/repo/Bitbucket/infra-fpnn-sdk/Unity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>

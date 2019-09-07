@@ -387,6 +387,38 @@ public class Integration_FPSocket {
     }
 
     [UnityTest]
+    public IEnumerator Socket_Open_Open_Close() {
+
+        int dataCount = 0;
+        int connectCount = 0;
+        int closeCount = 0;
+        int errorCount = 0;
+
+        FPSocket sock = new FPSocket((stream) => {
+            dataCount++;
+        }, this._host, this._port, this._timeout);
+
+        sock.Socket_Connect = (evd) => {
+            connectCount++;
+        };
+        sock.Socket_Close = (evd) => {
+            closeCount++;
+        };
+        sock.Socket_Error = (evd) => {
+            errorCount++;
+        };
+
+        sock.Open();
+        sock.Open();
+        sock.Close(null);
+        yield return new WaitForSeconds(0.5f);
+        Assert.AreEqual(0, dataCount);
+        Assert.AreEqual(0, connectCount);
+        Assert.AreEqual(1, closeCount);
+        Assert.AreEqual(0, errorCount);
+    }
+
+    [UnityTest]
     public IEnumerator Socket_Close_CloseException() {
 
         int dataCount = 0;
@@ -895,7 +927,7 @@ public class Integration_FPSocket {
             readbytes(stream, buffer, 0);
         };
 
-        sock = new FPSocket(onData, "www.google.com", 80, this._timeout);
+        sock = new FPSocket(onData, "www.github.com", 80, this._timeout);
 
         sock.Socket_Connect = (evd) => {
             connectCount++;
