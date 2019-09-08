@@ -286,7 +286,7 @@ public class Integration_FPManager {
 		FPManager.Instance.DelayTask(100, (state) => {
 			count++;
 		}, null);
-		FPManager.Instance.DelayTask(800, (state) => {
+		FPManager.Instance.DelayTask(700, (state) => {
 			count++;
 		}, null);
 		yield return new WaitForSeconds(0.5f);

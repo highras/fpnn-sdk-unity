@@ -77,6 +77,7 @@
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_CallbackData.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_EventData.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPCallback.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPClient.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPData.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEncryptor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEvent.cs" />

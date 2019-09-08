@@ -26,8 +26,15 @@ namespace com.fpnn {
 
         public FPClient(string endpoint, int connectionTimeout) {
 
-            String[] ipport = endpoint.Split(':');
-            this.Init(ipport[0], Convert.ToInt32(ipport[1]), connectionTimeout);
+            if (!string.IsNullOrEmpty(endpoint)) {
+
+                string[] ipport = endpoint.Split(':');
+
+                if (ipport.Length >= 2) {
+
+                    this.Init(ipport[0], Convert.ToInt32(ipport[1]), connectionTimeout);
+                }
+            }
         }
 
         public FPClient(string host, int port, int connectionTimeout) {
@@ -154,7 +161,7 @@ namespace com.fpnn {
 
         public void SendQuest(FPData data, CallbackDelegate callback, int timeout) {
 
-            if (data.GetSeq() == 0) {
+            if (data != null && data.GetSeq() == 0) {
 
                 data.SetSeq(this.AddSeq());
             }
@@ -181,7 +188,7 @@ namespace com.fpnn {
 
         public void SendNotify(FPData data) {
 
-            if (data.GetMtype() != 0x0) {
+            if (data != null && data.GetMtype() != 0x0) {
 
                 data.SetMtype(0x0);
             }
