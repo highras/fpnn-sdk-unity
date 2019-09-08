@@ -13,13 +13,10 @@ public class Integration_FPSocket {
     private int _timeout = 1 * 1000;
     private String _host = "52.83.245.22";
 
-    private FPEncryptor _cry;
-
     [SetUp]
     public void SetUp() {
 
         FPManager.Instance.Init();
-        this._cry = new FPEncryptor(new FPPackage());
     }
 
     [TearDown]

@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_ErrorRecorder.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPCallback.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPEvent.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPManager.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPProcessor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Integration_FPSocket.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_CallbackData.cs" />
@@ -79,6 +80,7 @@
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPData.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEncryptor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPEvent.cs" />
+     <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPManager.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPPackage.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPProcessor.cs" />
      <Compile Include="Assets\Scripts\Tests\testcase\Unit_FPSocket.cs" />
