@@ -23,8 +23,6 @@ namespace com.fpnn {
 
         private class BaseProcessor:IProcessor {
 
-            private FPEvent _event = new FPEvent();
-
             public void Service(FPData data, AnswerDelegate answer) {
 
                 // TODO 
@@ -167,29 +165,51 @@ namespace com.fpnn {
 
         public void Service(FPData data, AnswerDelegate answer) {
 
+            string method = null;
+
+            if (data != null) {
+
+                method = data.GetMethod();
+            }
+
+            if (string.IsNullOrEmpty(method)) {
+
+                return;
+            }
+
+            IProcessor psr = null;
+
             lock (self_locker) {
+
+                if (this._destroyed) {
+
+                    return;
+                }
 
                 if (this._processor == null) {
 
                     this._processor = new BaseProcessor();
                 }
 
-                if (!this._processor.HasPushService(data.GetMethod())) {
+                psr = this._processor;
 
-                    if (data.GetMethod() != "ping") {
+                if (!psr.HasPushService(method)) {
+
+                    if (method != "ping") {
 
                         return;
                     }
                 }
             }
 
-            FPProcessor self = this;
-
             this.AddService(() => {
 
                 lock (self_locker) {
 
-                    self._processor.Service(data, answer);
+                    if (psr != null) {
+
+                        psr.Service(data, answer);
+                    }
                 }
             });
         }

@@ -688,7 +688,7 @@ public class Integration_FPSocket {
         };
 
         sock.Open();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         Assert.IsTrue(sock.IsConnected());
     }
 

@@ -53,7 +53,7 @@ namespace com.fpnn {
 
         public void Open() {
 
-            if (String.IsNullOrEmpty(this._host)) {
+            if (string.IsNullOrEmpty(this._host)) {
 
                 this.OnError(new Exception("Cannot open null host"));
                 return;
@@ -89,7 +89,7 @@ namespace com.fpnn {
 
             FPSocket self = this;
 
-            FPManager.Instance.AsyncTask((state) => {
+            FPManager.Instance.ExecTask((state) => {
 
                 lock (conn_locker) {
 

@@ -41,7 +41,7 @@ namespace com.fpnn {
             }
         }
 
-        public FPManager() {}
+        private FPManager() {}
 
         private Timer _threadTimer = null;
         private TimerLocker timer_locker = new TimerLocker();
@@ -285,34 +285,27 @@ namespace com.fpnn {
             });
         }
 
-        public void AsyncTask(Action<object> taskAction, object state) {
-
-            this.DelayTask(0, taskAction, state);
-        }
-
         public void DelayTask(int milliSecond, Action<object> taskAction, object state) {
+
+            if (milliSecond <= 0) {
+
+                FPManager.Instance.ExecTask(taskAction, state);
+                return;
+            }
+
+            long timestamp = FPManager.Instance.GetMilliTimestamp() + milliSecond;
 
             this.AddService(() => {
 
-                ThreadPool.QueueUserWorkItem(new WaitCallback((st) => {
+                int diff = Convert.ToInt32(timestamp - FPManager.Instance.GetMilliTimestamp());
 
-                    try {
+                if (diff <= 0) {
 
-                        if (milliSecond > 0) {
+                    FPManager.Instance.ExecTask(taskAction, state);
+                } else {
 
-                            Thread.Sleep(milliSecond);
-                        }
-
-                        if (taskAction != null) {
-
-                            taskAction(st);
-                        }
-                    } catch (ThreadAbortException tex) {
-                    } catch (Exception ex) {
-
-                        ErrorRecorderHolder.recordError(ex);
-                    } 
-                }), state);
+                    FPManager.Instance.DelayTask(diff, taskAction, state);
+                }
             });
         }
 
