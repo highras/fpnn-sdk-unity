@@ -55,10 +55,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Main.cs" />
-     <Compile Include="Assets\Scripts\test\asyncStressClient.cs" />
-     <Compile Include="Assets\Scripts\test\Program.cs" />
-     <Compile Include="Assets\Scripts\test\singleClientConcurrentTest.cs" />
+     <Compile Include="Assets\Scripts\Main.cs" />
+     <Compile Include="Assets\Scripts\SingleClientConnect.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/di.zhao/Documents/repo/Bitbucket/infra-fpnn-sdk/Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
