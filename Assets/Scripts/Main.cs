@@ -21,7 +21,10 @@ public class Main : MonoBehaviour {
         FPManager.Instance.Init();
 
         //SingleClientConnect
-        this._testCase = new SingleClientConnect();
+        // this._testCase = new SingleClientConnect();
+
+        //TestCase
+        this._testCase = new TestCase();
 
         if (this._testCase != null) {
 

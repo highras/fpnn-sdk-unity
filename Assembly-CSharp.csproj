@@ -57,6 +57,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\SingleClientConnect.cs" />
+     <Compile Include="Assets\Scripts\TestCase.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/di.zhao/Documents/repo/Bitbucket/infra-fpnn-sdk/Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
