@@ -39,6 +39,24 @@ public class Unit_FPClient {
         Assert.AreEqual(0, count);
     }
 
+    [Test]
+    public void Client_NullEndpoint_Connect() {
+
+        int count = 0;
+        FPClient client = new FPClient(null, this._timeout);
+        client.Connect();
+        Assert.AreEqual(0, count);
+    }
+
+    [Test]
+    public void Client_EmptyEndpoint_Connect() {
+
+        int count = 0;
+        FPClient client = new FPClient("", this._timeout);
+        client.Connect();
+        Assert.AreEqual(0, count);
+    }
+
 
     /**
      *  FPClient(string host, int port, int connectionTimeout)
