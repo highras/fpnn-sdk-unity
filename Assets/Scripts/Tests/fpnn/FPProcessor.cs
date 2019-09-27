@@ -148,8 +148,6 @@ namespace com.fpnn {
 
                 if (service_locker.Status != 0) {
 
-                    service_locker.Status = 0;
-
                     try {
 
                         this._serviceEvent.Set();
@@ -157,6 +155,17 @@ namespace com.fpnn {
 
                         ErrorRecorderHolder.recordError(ex);
                     }
+
+                    FPManager.Instance.DelayTask(200, (state) => {
+
+                        lock (service_locker) {
+
+                            if (service_locker.Status != 0) {
+
+                                service_locker.Status = 0;
+                            }
+                        }
+                    }, null);
                 }
             }
         }
@@ -278,11 +287,6 @@ namespace com.fpnn {
             }
 
             this.StopServiceThread();
-
-            lock (service_locker) {
-
-                this._serviceCache.Clear();
-            }
         }
     }
 }
