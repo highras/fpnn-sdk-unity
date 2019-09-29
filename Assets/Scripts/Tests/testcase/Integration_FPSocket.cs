@@ -15,7 +15,6 @@ public class Integration_FPSocket {
 
     [SetUp]
     public void SetUp() {
-
         FPManager.Instance.Init();
     }
 
@@ -24,16 +23,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -43,9 +39,7 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
-
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(1, dataCount);
         Assert.AreEqual(1, connectCount);
@@ -55,16 +49,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -74,10 +65,8 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
-
         sock.Close(null);
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(1, dataCount);
@@ -88,16 +77,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_CloseException() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -107,10 +93,8 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
-
         sock.Close(new Exception());
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(1, dataCount);
@@ -121,16 +105,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -140,7 +121,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         yield return new WaitForSeconds(0.5f);
@@ -152,16 +132,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_CloseException() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -171,7 +148,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(new Exception());
         yield return new WaitForSeconds(0.5f);
@@ -183,16 +159,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -202,7 +175,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         sock.Close(null);
@@ -215,16 +187,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close_CloseException() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -234,7 +203,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         sock.Close(new Exception());
@@ -247,16 +215,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Close_Open() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -266,7 +231,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Close(null);
         sock.Open();
         yield return new WaitForSeconds(0.5f);
@@ -278,16 +242,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_CloseException_Open() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -297,7 +258,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Close(new Exception());
         sock.Open();
         yield return new WaitForSeconds(0.5f);
@@ -309,16 +269,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Open() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -328,7 +285,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Open();
         yield return new WaitForSeconds(0.5f);
@@ -340,16 +296,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_Open() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -359,10 +312,8 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(1, dataCount);
@@ -373,16 +324,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Open_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -392,7 +340,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Open();
         sock.Close(null);
@@ -405,16 +352,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Close_CloseException() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -424,7 +368,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Close(null);
         sock.Close(new Exception());
         yield return new WaitForSeconds(0.5f);
@@ -436,16 +379,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_CloseException_Delay_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -455,10 +395,8 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Close(new Exception());
         yield return new WaitForSeconds(0.5f);
-
         sock.Close(null);
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(0, dataCount);
@@ -469,16 +407,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Timeout() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, 0);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -488,7 +423,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.OnSecond(FPManager.Instance.GetMilliTimestamp());
         yield return new WaitForSeconds(0.5f);
@@ -502,16 +436,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Timeout_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, 0);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -521,7 +452,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.OnSecond(FPManager.Instance.GetMilliTimestamp());
         sock.Close(null);
@@ -536,16 +466,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Timeout_Delay_Close() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, 0);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -555,7 +482,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.OnSecond(FPManager.Instance.GetMilliTimestamp());
         yield return new WaitForSeconds(0.5f);
@@ -570,16 +496,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_IsIPv6() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -589,7 +512,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         Assert.IsFalse(sock.IsIPv6());
         yield return null;
@@ -597,16 +519,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_IsIPv6() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -616,7 +535,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         Assert.IsFalse(sock.IsIPv6());
@@ -624,16 +542,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_IsConnected() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -643,7 +558,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         Assert.IsFalse(sock.IsConnected());
         yield return null;
@@ -651,16 +565,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_IsConnected() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -670,7 +581,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(2.0f);
         Assert.IsTrue(sock.IsConnected());
@@ -678,16 +588,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close_IsConnected() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -697,7 +604,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         Assert.IsFalse(sock.IsConnected());
@@ -706,16 +612,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close_Delay_IsConnected() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -725,7 +628,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         yield return new WaitForSeconds(1.0f);
@@ -735,16 +637,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_Close_IsConnected() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -754,7 +653,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         sock.Close(null);
@@ -763,16 +661,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_IsConnecting() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -782,9 +677,7 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         Assert.IsFalse(sock.IsConnecting());
-
         sock.Open();
         Assert.IsTrue(sock.IsConnecting());
         yield return null;
@@ -792,16 +685,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_IsConnecting() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -811,7 +701,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         Assert.IsFalse(sock.IsConnecting());
@@ -819,16 +708,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close_IsConnecting() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -838,7 +724,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         Assert.IsTrue(sock.IsConnecting());
@@ -847,16 +732,13 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Close_Delay_IsConnecting() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
         }, this._host, this._port, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -866,7 +748,6 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         sock.Close(null);
         yield return new WaitForSeconds(1.0f);
@@ -875,41 +756,28 @@ public class Integration_FPSocket {
 
     [UnityTest]
     public IEnumerator Socket_Open_Delay_Write_Read() {
-
         int dataCount = 0;
         int connectCount = 0;
         int closeCount = 0;
         int errorCount = 0;
-
         FPSocket sock = null;
         byte[] buffer = new byte[20];
-
         OnDataDelegate onData = (stream) => {
-
             dataCount++;
-
             Action<NetworkStream, byte[], int> readbytes = null;
             Action<NetworkStream, byte[], int> calllback = (s, b, l) => {
-
                 readbytes(s, b, l);
             };
-
             readbytes = (st, buf, rlen) => {
-
                 if (rlen < buf.Length) {
-
                     sock.ReadSocket(st, buf, rlen, (b, l) => {
-
                         calllback(st, b, l);
                     });
                 }
             };
-
             readbytes(stream, buffer, 0);
         };
-
         sock = new FPSocket(onData, "www.github.com", 80, this._timeout);
-
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -919,10 +787,8 @@ public class Integration_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-
         sock.Open();
         yield return new WaitForSeconds(0.5f);
-
         sock.Write(new byte[20]);
         yield return new WaitForSeconds(1.0f);
         Assert.IsTrue(sock.IsConnected());

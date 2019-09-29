@@ -15,19 +15,14 @@ public class Main : MonoBehaviour {
     private ITestCase _testCase;
 
     void Start() {
-
         Debug.Log("hello fpnn!");
-
         FPManager.Instance.Init();
-
         //SingleClientConnect
         // this._testCase = new SingleClientConnect();
-
         //TestCase
         this._testCase = new TestCase();
 
         if (this._testCase != null) {
-
             this._testCase.StartTest();
         }
     }
@@ -35,17 +30,13 @@ public class Main : MonoBehaviour {
     void Update() {}
 
     void OnApplicationQuit() {
-
-    	if (this._testCase != null) {
-
+        if (this._testCase != null) {
             this._testCase.StopTest();
         }
     }
 
     void OnApplicationPause() {
-        
         if (this._testCase != null) {
-
             this._testCase.StopTest();
         }
     }
