@@ -287,7 +287,7 @@ public class Integration_FPSocket {
         };
         sock.Open();
         sock.Open();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(1, dataCount);
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(0, closeCount);
@@ -343,7 +343,7 @@ public class Integration_FPSocket {
         sock.Open();
         sock.Open();
         sock.Close(null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
