@@ -156,28 +156,28 @@ public class Unit_FPManager {
 
 
     /**
-     *  ExecTask(Action<object> taskAction, object state)
+     *  AsyncTask(Action<object> taskAction, object state)
      */
     [Test]
-    public void Manager_ExecTask_NullAction() {
+    public void Manager_AsyncTask_NullAction() {
         int count = 0;
-        FPManager.Instance.ExecTask(null, new object());
+        FPManager.Instance.AsyncTask(null, new object());
         Assert.AreEqual(0, count);
     }
 
     [Test]
-    public void Manager_ExecTask_SimpleAction() {
+    public void Manager_AsyncTask_SimpleAction() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, new object());
         Assert.AreEqual(0, count);
     }
 
     [Test]
-    public void Manager_ExecTask_NullState() {
+    public void Manager_AsyncTask_NullState() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, null);
         Assert.AreEqual(0, count);

@@ -189,9 +189,9 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask_Delay() {
+    public IEnumerator Manager_AsyncTask_Delay() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, null);
         yield return new WaitForSeconds(0.5f);
@@ -199,20 +199,20 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask_NullTask_Delay() {
+    public IEnumerator Manager_AsyncTask_NullTask_Delay() {
         int count = 0;
-        FPManager.Instance.ExecTask(null, null);
+        FPManager.Instance.AsyncTask(null, null);
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(0, count);
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask_ExecTask_Delay() {
+    public IEnumerator Manager_AsyncTask_AsyncTask_Delay() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, null);
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, null);
         yield return new WaitForSeconds(0.5f);
@@ -220,15 +220,15 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_EventTask_CallbackTask_ExecTask_Delay() {
+    public IEnumerator Manager_EventTask_CallbackTask_AsyncTask_Delay() {
         int count = 0;
         FPManager.Instance.EventTask((evd) => {
             count++;
-        }, new EventData("Manager_EventTask_CallbackTask_ExecTask_Delay"));
+        }, new EventData("Manager_EventTask_CallbackTask_AsyncTask_Delay"));
         FPManager.Instance.CallbackTask((cbd) => {
             count++;
         }, new CallbackData(new FPData()));
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, null);
         yield return new WaitForSeconds(0.5f);
@@ -269,9 +269,9 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask_DelayTask_Delay() {
+    public IEnumerator Manager_AsyncTask_DelayTask_Delay() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
         }, null);
         FPManager.Instance.DelayTask(800, (state) => {
@@ -284,11 +284,11 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask_Call_ExecTask_Delay() {
+    public IEnumerator Manager_AsyncTask_Call_AsyncTask_Delay() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
-            FPManager.Instance.ExecTask((st) => {
+            FPManager.Instance.AsyncTask((st) => {
                 count++;
             }, null);
         }, null);
@@ -297,9 +297,9 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask_Call_DelayTask_Delay() {
+    public IEnumerator Manager_AsyncTask_Call_DelayTask_Delay() {
         int count = 0;
-        FPManager.Instance.ExecTask((state) => {
+        FPManager.Instance.AsyncTask((state) => {
             count++;
             FPManager.Instance.DelayTask(800, (st) => {
                 count++;
@@ -312,11 +312,11 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_DelayTask_Call_ExecTask_Delay() {
+    public IEnumerator Manager_DelayTask_Call_AsyncTask_Delay() {
         int count = 0;
         FPManager.Instance.DelayTask(300, (state) => {
             count++;
-            FPManager.Instance.ExecTask((st) => {
+            FPManager.Instance.AsyncTask((st) => {
                 count++;
             }, null);
         }, null);
@@ -340,11 +340,11 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_ExecTask4000_Delay() {
+    public IEnumerator Manager_AsyncTask4000_Delay() {
         int count = 0;
 
         for (int i = 0; i < 4000; i++) {
-            FPManager.Instance.ExecTask((state) => {
+            FPManager.Instance.AsyncTask((state) => {
                 count++;
             }, null);
         }
