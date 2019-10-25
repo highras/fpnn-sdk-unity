@@ -73,19 +73,19 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_Add60_Delay() {
+    public IEnumerator Manager_Add550_Delay() {
         int count = 0;
 
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 550; i++) {
             FPManager.Instance.AddSecond((evd) => {
                 count++;
             });
         }
 
         yield return new WaitForSeconds(1.1f);
-        Assert.AreEqual(50, count);
+        Assert.AreEqual(500, count);
         yield return new WaitForSeconds(1.1f);
-        Assert.AreEqual(100, count);
+        Assert.AreEqual(1000, count);
         FPManager.Instance.StopTimerThread();
     }
 
