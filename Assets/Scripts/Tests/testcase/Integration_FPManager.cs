@@ -340,30 +340,30 @@ public class Integration_FPManager {
     }
 
     [UnityTest]
-    public IEnumerator Manager_AsyncTask4000_Delay() {
+    public IEnumerator Manager_AsyncTask10000_Delay() {
         int count = 0;
 
-        for (int i = 0; i < 4000; i++) {
+        for (int i = 0; i < 10000; i++) {
             FPManager.Instance.AsyncTask((state) => {
                 count++;
             }, null);
         }
 
         yield return new WaitForSeconds(1.0f);
-        Assert.AreEqual(4000, count);
+        Assert.AreEqual(10000, count);
     }
 
     [UnityTest]
-    public IEnumerator Manager_DelayTask4000_Delay() {
+    public IEnumerator Manager_DelayTask10000_Delay() {
         int count = 0;
 
-        for (int i = 0; i < 4000; i++) {
+        for (int i = 0; i < 10000; i++) {
             FPManager.Instance.DelayTask(500, (state) => {
                 count++;
             }, null);
         }
 
         yield return new WaitForSeconds(1.0f);
-        Assert.AreEqual(4000, count);
+        Assert.AreEqual(10000, count);
     }
 }
