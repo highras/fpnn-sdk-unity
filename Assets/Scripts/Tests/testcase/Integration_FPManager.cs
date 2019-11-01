@@ -364,6 +364,6 @@ public class Integration_FPManager {
         }
 
         yield return new WaitForSeconds(1.0f);
-        Assert.AreEqual(3000, count);
+        Assert.AreEqual(4000, count);
     }
 }

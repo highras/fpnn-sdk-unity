@@ -14,7 +14,7 @@ public class Integration_FPClient {
 
     private int _port = 13325;
     private int _timeout = 1 * 1000;
-    private String _host = "52.83.245.22";
+    private String _host = "rtm-intl-frontgate.funplus.com";
 
     [SetUp]
     public void SetUp() {
@@ -40,7 +40,7 @@ public class Integration_FPClient {
             errorCount++;
         };
         client.Connect();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.IsTrue(client.IsOpen());
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(0, closeCount);

@@ -11,7 +11,7 @@ public class Integration_FPSocket {
 
     private int _port = 13325;
     private int _timeout = 1 * 1000;
-    private String _host = "52.83.245.22";
+    private String _host = "rtm-intl-frontgate.funplus.com";
 
     [SetUp]
     public void SetUp() {
