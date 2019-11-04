@@ -9,9 +9,9 @@ using com.fpnn;
 
 public class Unit_FPClient {
 
-    private int _port = 13325;
+    private int _port = 13609;
     private int _timeout = 1 * 1000;
-    private String _host = "52.83.245.22";
+    private String _host = "rum-nx-front.ifunplus.cn";
 
     [SetUp]
     public void SetUp() {}

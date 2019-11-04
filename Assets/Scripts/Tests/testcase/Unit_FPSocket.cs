@@ -9,9 +9,9 @@ using com.fpnn;
 
 public class Unit_FPSocket {
 
-    private int _port = 13325;
+    private int _port = 13609;
     private int _timeout = 1 * 1000;
-    private String _host = "52.83.245.22";
+    private String _host = "rum-nx-front.ifunplus.cn";
 
     [SetUp]
     public void SetUp() {}
@@ -544,7 +544,7 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(0, closeCount);
-        Assert.AreEqual(1, errorCount);
+        Assert.AreEqual(0, errorCount);
         Assert.AreEqual(0, callbackCount);
     }
 
@@ -567,7 +567,7 @@ public class Unit_FPSocket {
         sock.Socket_Error = (evd) => {
             errorCount++;
         };
-        byte[] bytes = new byte[0];
+        byte[] bytes = new byte[20];
         Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         s.Connect(this._host, this._port);
         NetworkStream ns = new NetworkStream(s);
@@ -578,7 +578,7 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(0, closeCount);
-        Assert.AreEqual(1, errorCount);
+        Assert.AreEqual(0, errorCount);
         Assert.AreEqual(0, callbackCount);
     }
 
@@ -642,7 +642,7 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(0, closeCount);
-        Assert.AreEqual(1, errorCount);
+        Assert.AreEqual(0, errorCount);
         Assert.AreEqual(0, callbackCount);
     }
 
@@ -675,7 +675,7 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(0, closeCount);
-        Assert.AreEqual(1, errorCount);
+        Assert.AreEqual(0, errorCount);
         Assert.AreEqual(0, callbackCount);
     }
 
@@ -741,7 +741,7 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(0, closeCount);
-        Assert.AreEqual(1, errorCount);
+        Assert.AreEqual(0, errorCount);
         Assert.AreEqual(0, callbackCount);
     }
 
@@ -774,7 +774,7 @@ public class Unit_FPSocket {
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(0, closeCount);
-        Assert.AreEqual(1, errorCount);
+        Assert.AreEqual(0, errorCount);
         Assert.AreEqual(0, callbackCount);
     }
 }

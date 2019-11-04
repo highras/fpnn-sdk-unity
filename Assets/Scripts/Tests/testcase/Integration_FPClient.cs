@@ -12,9 +12,9 @@ using GameDevWare.Serialization;
 
 public class Integration_FPClient {
 
-    private int _port = 13325;
+    private int _port = 13609;
     private int _timeout = 1 * 1000;
-    private String _host = "rtm-intl-frontgate.funplus.com";
+    private String _host = "rum-nx-front.ifunplus.cn";
 
     [SetUp]
     public void SetUp() {
