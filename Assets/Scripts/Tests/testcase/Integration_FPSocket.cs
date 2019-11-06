@@ -9,9 +9,9 @@ using com.fpnn;
 
 public class Integration_FPSocket {
 
-    private int _port = 13609;
+    private int _port = 13325;
     private int _timeout = 1 * 1000;
-    private String _host = "rum-nx-front.ifunplus.cn";
+    private String _host = "52.83.245.22";
 
     [SetUp]
     public void SetUp() {
@@ -45,6 +45,8 @@ public class Integration_FPSocket {
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(0, closeCount);
         Assert.AreEqual(0, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -68,7 +70,7 @@ public class Integration_FPSocket {
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         sock.Close(null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(1, dataCount);
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -94,9 +96,9 @@ public class Integration_FPSocket {
             errorCount++;
         };
         sock.Open();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         sock.Close(new Exception());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(1, dataCount);
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -123,7 +125,7 @@ public class Integration_FPSocket {
         };
         sock.Open();
         sock.Close(null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -150,7 +152,7 @@ public class Integration_FPSocket {
         };
         sock.Open();
         sock.Close(new Exception());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -178,7 +180,7 @@ public class Integration_FPSocket {
         sock.Open();
         sock.Close(null);
         sock.Close(null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -206,7 +208,7 @@ public class Integration_FPSocket {
         sock.Open();
         sock.Close(null);
         sock.Close(new Exception());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -238,6 +240,8 @@ public class Integration_FPSocket {
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
         Assert.AreEqual(0, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -265,6 +269,8 @@ public class Integration_FPSocket {
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
         Assert.AreEqual(1, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -292,6 +298,8 @@ public class Integration_FPSocket {
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(0, closeCount);
         Assert.AreEqual(0, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -320,6 +328,8 @@ public class Integration_FPSocket {
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(0, closeCount);
         Assert.AreEqual(0, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -398,7 +408,7 @@ public class Integration_FPSocket {
         sock.Close(new Exception());
         yield return new WaitForSeconds(0.5f);
         sock.Close(null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
@@ -413,7 +423,7 @@ public class Integration_FPSocket {
         int errorCount = 0;
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
-        }, this._host, this._port, 0);
+        }, this._host, this._port, 1);
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -424,14 +434,16 @@ public class Integration_FPSocket {
             errorCount++;
         };
         sock.Open();
-        sock.OnSecond(FPManager.Instance.GetMilliTimestamp());
-        yield return new WaitForSeconds(0.5f);
+        sock.OnSecond(FPManager.Instance.GetMilliTimestamp()+1);
+        yield return new WaitForSeconds(1.0f);
         Assert.IsFalse(sock.IsConnected());
         Assert.IsFalse(sock.IsConnecting());
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
         Assert.AreEqual(1, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -442,7 +454,7 @@ public class Integration_FPSocket {
         int errorCount = 0;
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
-        }, this._host, this._port, 0);
+        }, this._host, this._port, 1);
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -453,9 +465,9 @@ public class Integration_FPSocket {
             errorCount++;
         };
         sock.Open();
-        sock.OnSecond(FPManager.Instance.GetMilliTimestamp());
+        sock.OnSecond(FPManager.Instance.GetMilliTimestamp()+1);
         sock.Close(null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         Assert.IsFalse(sock.IsConnected());
         Assert.IsFalse(sock.IsConnecting());
         Assert.AreEqual(0, dataCount);
@@ -472,7 +484,7 @@ public class Integration_FPSocket {
         int errorCount = 0;
         FPSocket sock = new FPSocket((stream) => {
             dataCount++;
-        }, this._host, this._port, 0);
+        }, this._host, this._port, 1);
         sock.Socket_Connect = (evd) => {
             connectCount++;
         };
@@ -483,15 +495,17 @@ public class Integration_FPSocket {
             errorCount++;
         };
         sock.Open();
-        sock.OnSecond(FPManager.Instance.GetMilliTimestamp());
-        yield return new WaitForSeconds(0.5f);
+        sock.OnSecond(FPManager.Instance.GetMilliTimestamp()+1);
+        yield return new WaitForSeconds(1.0f);
         sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
         Assert.IsFalse(sock.IsConnected());
         Assert.IsFalse(sock.IsConnecting());
         Assert.AreEqual(0, dataCount);
         Assert.AreEqual(0, connectCount);
         Assert.AreEqual(1, closeCount);
         Assert.AreEqual(1, errorCount);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -514,7 +528,8 @@ public class Integration_FPSocket {
         };
         sock.Open();
         Assert.IsFalse(sock.IsIPv6());
-        yield return null;
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -538,6 +553,8 @@ public class Integration_FPSocket {
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         Assert.IsFalse(sock.IsIPv6());
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -560,7 +577,8 @@ public class Integration_FPSocket {
         };
         sock.Open();
         Assert.IsFalse(sock.IsConnected());
-        yield return null;
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -584,6 +602,8 @@ public class Integration_FPSocket {
         sock.Open();
         yield return new WaitForSeconds(2.0f);
         Assert.IsTrue(sock.IsConnected());
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -607,7 +627,7 @@ public class Integration_FPSocket {
         sock.Open();
         sock.Close(null);
         Assert.IsFalse(sock.IsConnected());
-        yield return null;
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -657,6 +677,7 @@ public class Integration_FPSocket {
         yield return new WaitForSeconds(0.5f);
         sock.Close(null);
         Assert.IsFalse(sock.IsConnected());
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -680,7 +701,8 @@ public class Integration_FPSocket {
         Assert.IsFalse(sock.IsConnecting());
         sock.Open();
         Assert.IsTrue(sock.IsConnecting());
-        yield return null;
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -704,6 +726,8 @@ public class Integration_FPSocket {
         sock.Open();
         yield return new WaitForSeconds(0.5f);
         Assert.IsFalse(sock.IsConnecting());
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -727,7 +751,7 @@ public class Integration_FPSocket {
         sock.Open();
         sock.Close(null);
         Assert.IsTrue(sock.IsConnecting());
-        yield return null;
+        yield return new WaitForSeconds(1.0f);
     }
 
     [UnityTest]
@@ -797,5 +821,7 @@ public class Integration_FPSocket {
         Assert.AreEqual(1, connectCount);
         Assert.AreEqual(0, closeCount);
         Assert.AreEqual(0, errorCount);
+        sock.Close(null);
+        yield return new WaitForSeconds(1.0f);
     }
 }
