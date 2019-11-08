@@ -77,6 +77,10 @@ namespace com.fpnn {
         private object self_locker = new object();
 
         public void Connect() {
+            if (this.HasConnect()) {
+                return;
+            }
+            
             lock (self_locker) {
                 if (this._isClose) {
                     return;
