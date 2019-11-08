@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ExportPackage {
 
-    private const string SDK_PLUGIN_PATH = "Assets/Plugins/fpnn/";
+    private const string SDK_PLUGIN_PATH = "Assets/Scripts/Tests/fpnn/";
     private const string BASE_PACKAGE_PATCH = "fpnn-sdk-unity";
 
     private static string Plugin_Version = com.fpnn.FPConfig.VERSION;
