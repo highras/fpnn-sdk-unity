@@ -6,7 +6,7 @@
 
 ## Current Version
 
-	public static readonly string com.fpnn.Config.Version = "2.0.3";
+	public static readonly string com.fpnn.Config.Version = "2.0.4";
 
 ## Init & Config SDK
 
@@ -57,6 +57,10 @@ Initialize and configure FPNN SDK.
 * **Config.errorRecorder**
 
 	Instance of com.fpnn.common.ErrorRecoder implemented. Default is null.
+
+* **Config.dropAllUnexecutedTaskWhenExiting**
+
+	Drop all unexecuted tasks when applcation exiting. Default is false for common, true for Unity editor.
 
 
 ## FPNN TCPClient
