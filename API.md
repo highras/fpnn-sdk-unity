@@ -6,7 +6,7 @@
 
 ## Current Version
 
-	public static readonly string com.fpnn.Config.Version = "2.0.6";
+	public static readonly string com.fpnn.Config.Version = "2.0.7";
 
 ## Init & Config SDK
 
